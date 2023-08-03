@@ -1,13 +1,12 @@
 import './App.css';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
     <div className="app">
+      <Sidebar/>
       <div className="container">
         Header
-      </div>
-      <div className="container" style={{background: "blue"}}>
-        Graph
       </div>
     </div>
   );

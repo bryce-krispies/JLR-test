@@ -1,0 +1,142 @@
+.navigation-container {
+    background-color: #2C2C2C;
+    padding-top: 1em;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
+  .navigation-admin {
+    background-color: #2C2C2C;
+    padding-top: 1em;
+    display: grid !important;
+    grid-template-columns: auto auto;
+  }
+  
+  .left{
+    margin-left: 0rem;
+  }
+  
+  /*Needed to redeclare this in order to avoid a weird transition*/
+  .header-one{
+    font-size: 2em;
+    color:#EEEEEE;
+    margin: auto auto auto 0rem;
+  }
+  
+  .account-container {
+    height: fit-content;
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .role-text {
+    margin: 0 !important;
+    font-size: medium;
+    color: #ADADAD;
+  }
+  
+  #user-icon-container {
+    margin: 0 0 0.75em 0.75em;
+  }
+  
+  #user-icon {
+    margin: auto 0;
+  }
+  
+  .icon-container {
+    color: #EEEEEE;
+    font-size: 1.25rem;
+    display: flex;
+    margin: 0 0.5em 0.75em 1.5em;
+  }
+  
+  .navigation-text {
+    white-space: nowrap;
+    padding-left: 1em;
+  }
+  
+  .bottom-text {
+    padding-left: 1em;
+  }
+  
+  .navigation-button {
+    height: 3em;
+    width: 3em;
+    right: 0.65em;
+    position: relative;
+    border-radius: 50% !important;
+    color: #2c2c2c;
+    background-color: #eeeeee;
+    filter: drop-shadow(0.25em 0.375em 0.625em #00000040);
+    top: 4em;
+    padding: 0;
+    font-size: 1rem !important;
+    border: 0;
+  }
+  
+  .navigation-button:hover {
+    background-color: #94dfff;
+    filter: drop-shadow(0.25em 0.375em 0.625em #00000040);
+  }
+  
+  .navigation-button:active {
+    background-color: #59cafa;
+    filter: drop-shadow(0 0 0 #00000040);
+  }
+  
+  a {
+    text-decoration: none !important;
+  }
+  
+  a:hover {
+    color: #94dfff !important;
+  }
+  
+  a.active {
+    color: #59cafa !important;
+  }
+  
+  img {
+    width: 4.5em;
+  }
+  
+  h1 {
+    color: #eeeeee;
+    margin: auto !important;
+  }
+  
+  .expanded-header-container {
+    display: flex;
+    grid-template-columns: auto auto;
+    margin-bottom: 3em;
+    padding-left: 0.5em;
+    padding-right: 1.4em;
+    grid-gap: 1em;
+  }
+  
+  .closed-header-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-bottom: 3em;
+    padding-left: 0.5em;
+  }
+  
+  .button-container {
+    width: 0.75em;
+  }
+  
+  .logout-button{
+    color: #eeeeee;
+    margin: auto 1rem auto auto; 
+    /*margin: auto 1.5rem auto 3.5rem;*/
+    font-size: x-large !important;
+  }
+  
+  .logout-button:hover{
+    color: #59cafa !important;
+    cursor: pointer;
+  }
+  
+  .same-line{
+    display: flex;
+  }
