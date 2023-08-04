@@ -1,10 +1,13 @@
 import './Visualization.css';
 
-function Visualization() {
-  return (
-    <div className="vis-container">
-    </div>
-  );
+function Visualization(props) {
+
+    console.log(props);
+
+    return (
+        <div className="vis-container">
+        </div>
+    );
 }
 
 export default Visualization;
