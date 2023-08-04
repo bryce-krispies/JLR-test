@@ -12,7 +12,7 @@ function Visualization(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.filtered.map((temp) => <tr>{Object.values(temp).map((innerObj) => <td>{innerObj}</td>)}</tr>)}
+                        {props.filtered.map((entry) => <tr>{Object.values(entry).map((value) => <td>{value}</td>)}</tr>)}
                     </tbody>
                 </Table>
             </div>
