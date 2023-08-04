@@ -23,6 +23,7 @@ function App() {
   return (
     <div className="app">
       <Sidebar/>
+      <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization record={record} filtered={filtered}/>
     </div>
   );
