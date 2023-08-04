@@ -6,6 +6,8 @@ import Papa from 'papaparse';
 import csvFile from './CDTData.csv';
 
 function App() {
+  const [filterSpecs, setFilterSpecs] = useState([]);
+  const [records, setRecords] = useState([]);
   const [record, setRecord] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
@@ -14,6 +16,37 @@ function App() {
       download: true,
       header: true,
       complete: function (input) {
+        let temp = {
+          cell: [],
+          vehicle_id: [],
+          drive_trace: [],
+          engineer: [],
+          driver: [],
+          iwr: [],
+          rmsse: [],
+          total_co_gkm: [],
+          total_co2_gkm: []
+        };
+
+        input.data.forEach((test) => {
+          if (!temp.cell.includes(test['Cell'])) temp.cell.push(test['Cell']);
+          if (!temp.vehicle_id.includes(test['VehicleID'])) temp.vehicle_id.push(test['VehicleID']);
+          if (!temp.drive_trace.includes(test['DriveTrace'])) temp.drive_trace.push(test['DriveTrace']);
+          if (!temp.engineer.includes(test['Engineer'])) temp.engineer.push(test['Engineer']);
+          if (!temp.driver.includes(test['Driver'])) temp.driver.push(test['Driver']);
+          temp.iwr.push(parseFloat(test['IWR']));
+          temp.rmsse.push(parseFloat(test['RMSSE']));
+          temp.total_co_gkm.push(parseFloat(test['TotalCOgkm']));
+          temp.total_co2_gkm.push(parseFloat(test['TotalCO2gkm']));
+        });
+        
+        temp.iwr = [Math.min(...temp.iwr), Math.max(...temp.iwr)];
+        temp.rmsse = [Math.min(...temp.rmsse), Math.max(...temp.rmsse)];
+        temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
+        temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
+
+        setFilterSpecs(temp);
+        setRecords(input.data);
         setRecord(input.data[0]);
         setFiltered(input.data);
       }
@@ -22,7 +55,7 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar/>
+      <Sidebar filterSpecs={filterSpecs} records={records}/>
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization record={record} filtered={filtered}/>
     </div>
