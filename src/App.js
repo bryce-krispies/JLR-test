@@ -7,7 +7,6 @@ import csvFile from './CDTData.csv';
 
 function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
-  const [records, setRecords] = useState([]);
   const [record, setRecord] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
@@ -51,7 +50,6 @@ function App() {
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
 
         setFilterSpecs(temp);
-        setRecords(input.data);
         setRecord(input.data[0]);
         setFiltered(input.data);
       }
@@ -60,7 +58,7 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar filterSpecs={filterSpecs} records={records}/>
+      <Sidebar filterSpecs={filterSpecs}/>
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization record={record} filtered={filtered}/>
     </div>
