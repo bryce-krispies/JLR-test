@@ -40,6 +40,11 @@ function App() {
           temp.total_co2_gkm.push(parseFloat(test['TotalCO2gkm']));
         });
         
+        temp.cell.sort();
+        temp.vehicle_id.sort();
+        temp.drive_trace.sort();
+        temp.engineer.sort();
+        temp.driver.sort();
         temp.iwr = [Math.min(...temp.iwr), Math.max(...temp.iwr)];
         temp.rmsse = [Math.min(...temp.rmsse), Math.max(...temp.rmsse)];
         temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
