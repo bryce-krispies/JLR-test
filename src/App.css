@@ -6,3 +6,18 @@
   */
   display: flex;
 }
+
+::-webkit-scrollbar {
+  height: 0.75rem;
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner {
+  padding: 5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #AEAEAE;
+  border-radius: 0.5rem;
+  border: 0.15rem solid white;
+}
