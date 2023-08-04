@@ -59,7 +59,7 @@ function Sidebar() {
         <div id="sidebar" className="sidebar-container">
             <div style={sidebarWidthStyling} className="sidebar-content-container">
                 <div className="header">
-                    <img id="jlrLogo" src={ require("../assets/jlr-new-logo.jpg") } alt="" style={{width: "4.5rem"}}/>
+                    <img id="jlrLogo" src={ require("../assets/Jaguar_Land_Rover_logo_2023.svg.png") } alt="" style={{width: "4.5rem"}}/>
                     <div className="left header-one">Filter</div>
                 </div>
                 <div>
