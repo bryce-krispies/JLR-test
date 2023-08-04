@@ -12,7 +12,12 @@ function Visualization(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.filtered.map((entry) => <tr>{Object.values(entry).map((value) => <td>{value}</td>)}</tr>)}
+                        {props.filtered.map((entry) => {
+                            if (!props.checkedCells.includes(entry['Cell'])) {
+                                return;
+                            }
+                            return <tr>{Object.values(entry).map((value) => <td>{value}</td>)}</tr>;
+                        })}
                     </tbody>
                 </Table>
             </div>

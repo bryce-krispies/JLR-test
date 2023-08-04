@@ -5,6 +5,22 @@ import Form from 'react-bootstrap/Form';
 
 function Sidebar(props) {
 
+    function cellChecked() {
+        var cells = [...props.checkedCells];
+        for(var i = props.filterSpecs.cell.length - 1; i>=0; i--) {
+            var checkboxes = document.getElementsByName(props.filterSpecs.cell[i]);
+            for(var j = checkboxes.length - 1; j>=0; j--) {
+                var index = cells.indexOf(checkboxes[j].id);
+                if(checkboxes[j].checked && index === -1) {
+                    cells.push(checkboxes[j].id);
+                } else if(index !== -1 && !checkboxes[j].checked) {
+                    cells.splice(index, 1);
+                }
+            }
+        }
+        props.setCheckedCells(cells);
+    }
+
     return (
         <div className="sidebar-container">
             <h2 style={{margin: "0 auto 0 auto", padding: "0 0 0.5rem 0"}}>Filter</h2>
@@ -13,7 +29,9 @@ function Sidebar(props) {
                     <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
                     <Accordion.Body>
                         <Form>
-                            {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=><Form.Check type={'checkbox'} id={`default-checkbox`} label={label}/>)}
+                            {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
+                                <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label}/>
+                            )}
                         </Form>
                     </Accordion.Body>
                 </Accordion.Item>

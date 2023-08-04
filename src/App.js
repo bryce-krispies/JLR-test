@@ -7,6 +7,7 @@ import csvFile from './CDTData.csv';
 
 function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
+  const [checkedCells, setCheckedCells] = useState([]);
   const [record, setRecord] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
@@ -52,15 +53,17 @@ function App() {
         setFilterSpecs(temp);
         setRecord(input.data[0]);
         setFiltered(input.data);
+
+        setCheckedCells(temp.cell);
       }
     });
   }, []);
 
   return (
     <div className="app">
-      <Sidebar filterSpecs={filterSpecs}/>
+      <Sidebar filterSpecs={filterSpecs} checkedCells={checkedCells} setCheckedCells={setCheckedCells}/>
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
-      <Visualization record={record} filtered={filtered}/>
+      <Visualization record={record} filtered={filtered} checkedCells={checkedCells}/>
     </div>
   );
 }
