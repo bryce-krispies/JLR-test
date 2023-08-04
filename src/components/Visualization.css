@@ -1,5 +1,11 @@
 .vis-container {
     height: 100%;
     width: 100%;
-    background-color: pink;
+    padding: 2rem;
+    padding-right: 0.5rem;
+}
+
+.table-container {
+    height: 100%;
+    width: 100%;
 }

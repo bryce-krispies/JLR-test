@@ -6,14 +6,16 @@ import Papa from 'papaparse';
 import csvFile from './CDTData.csv';
 
 function App() {
-  const [records, setRecords] = useState([]);
+  const [record, setRecord] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
   useEffect(()=>{
     Papa.parse(csvFile, {
       download: true,
       header: true,
       complete: function (input) {
-        setRecords(input.data);
+        setRecord(input.data[0]);
+        setFiltered(input.data);
       }
     });
   }, []);
@@ -21,7 +23,7 @@ function App() {
   return (
     <div className="app">
       <Sidebar/>
-      <Visualization records={records}/>
+      <Visualization record={record} filtered={filtered}/>
     </div>
   );
 }

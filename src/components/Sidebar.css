@@ -2,6 +2,7 @@
   padding: 1em 0;
   display: grid;
   grid-template-columns: fit-content(100%) auto;
+  background-color: #e8e8e8;
 }
 
 .left{
