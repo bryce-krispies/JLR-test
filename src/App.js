@@ -8,8 +8,7 @@ import csvFile from './CDTData.csv';
 function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
-  const [record, setRecord] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [records, setRecords] = useState([]);
 
   useEffect(()=>{
     Papa.parse(csvFile, {
@@ -51,9 +50,7 @@ function App() {
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
 
         setFilterSpecs(temp);
-        setRecord(input.data[0]);
-        setFiltered(input.data);
-
+        setRecords(input.data);
         setCheckedCells(temp.cell);
       }
     });
@@ -63,7 +60,7 @@ function App() {
     <div className="app">
       <Sidebar filterSpecs={filterSpecs} checkedCells={checkedCells} setCheckedCells={setCheckedCells}/>
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
-      <Visualization record={record} filtered={filtered} checkedCells={checkedCells}/>
+      <Visualization records={records} checkedCells={checkedCells}/>
     </div>
   );
 }

@@ -5,15 +5,15 @@ function Visualization(props) {
     return (
         <div className="vis-container">
             <div className="table-container table-responsive">
-            <Table striped bordered hover className="testing">
+                <Table striped bordered hover className="testing">
                     <thead>
                         <tr>
-                            {Object.keys(props.record).map((object) => <th>{object}</th>)}
+                            {props.records[0] && Object.keys(props.records[0]).filter((entry) => {/*TODO*/return true;}).map((entry) => <th>{entry}</th>)}
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            props.filtered.filter((entry) => {
+                            props.records.filter((entry) => {
                                 if (props.checkedCells.includes(entry['Cell'])) {
                                     return true;
                                 }
