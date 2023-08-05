@@ -49,9 +49,9 @@ function App() {
         temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
 
-        setFilterSpecs(temp);
+        setFilterSpecs(JSON.parse(JSON.stringify(temp)));
         setRecords(input.data);
-        setCheckedCells(temp.cell);
+        setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
       }
     });
   }, []);
