@@ -7,6 +7,7 @@ import csvFile from './CDTData.csv';
 
 function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
+  const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
   const [records, setRecords] = useState([]);
 
@@ -16,6 +17,7 @@ function App() {
       header: true,
       complete: function (input) {
         let temp = {
+          column: [],
           cell: [],
           vehicle_id: [],
           drive_trace: [],
@@ -39,6 +41,7 @@ function App() {
           temp.total_co2_gkm.push(parseFloat(test['TotalCO2gkm']));
         });
         
+        temp.column = Object.keys(input.data[0]);
         temp.cell.sort();
         temp.vehicle_id.sort();
         temp.drive_trace.sort();
@@ -48,9 +51,10 @@ function App() {
         temp.rmsse = [Math.min(...temp.rmsse), Math.max(...temp.rmsse)];
         temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
-
-        setFilterSpecs(JSON.parse(JSON.stringify(temp)));
+        
         setRecords(input.data);
+        setFilterSpecs(JSON.parse(JSON.stringify(temp)));
+        setCheckedColumns(JSON.parse(JSON.stringify(Object.keys(input.data[0]))));
         setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
       }
     });
@@ -58,9 +62,17 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar filterSpecs={filterSpecs} checkedCells={checkedCells} setCheckedCells={setCheckedCells}/>
+      <Sidebar
+        filterSpecs={filterSpecs}
+        checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
+        checkedCells={checkedCells} setCheckedCells={setCheckedCells}
+      />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
-      <Visualization records={records} checkedCells={checkedCells}/>
+      <Visualization
+        records={records}
+        checkedColumns={checkedColumns}
+        checkedCells={checkedCells}
+      />
     </div>
   );
 }

@@ -8,7 +8,15 @@ function Visualization(props) {
                 <Table striped bordered hover className="testing">
                     <thead>
                         <tr>
-                            {props.records[0] && Object.keys(props.records[0]).filter((entry) => {/*TODO*/return true;}).map((entry) => <th>{entry}</th>)}
+                            {
+                                props.records[0] &&
+                                Object.keys(props.records[0]).filter((entry) => {
+                                    if (!props.checkedColumns.includes(entry)) {
+                                        return false;
+                                    }
+                                    return true;
+                                }).map((entry) => <th>{entry}</th>)
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -18,7 +26,18 @@ function Visualization(props) {
                                     return true;
                                 }
                                 return false;
-                            }).map((entry) => <tr>{Object.values(entry).map((value) => <td>{value}</td>)}</tr>)
+                            }).map((entry) => {
+                                var temp = [];
+                                Object.entries(entry).forEach((pair) => {
+                                    if (props.checkedColumns.includes(pair[0])) {
+                                        temp.push(pair[1]);
+                                    }
+                                });
+                                return <tr>{temp.map((value) => <td>{value}</td>)}</tr>;
+                            }).filter((entry) => {
+                                /*TODO Filter out duplicates here*/
+                                return true;
+                            })
                         }
                     </tbody>
                 </Table>
