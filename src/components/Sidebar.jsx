@@ -2,6 +2,7 @@ import React from "react";
 import './Sidebar.css';
 import Accordion from "react-bootstrap/Accordion";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function Sidebar(props) {
 
@@ -40,7 +41,7 @@ function Sidebar(props) {
     return (
         <div className="sidebar-container">
             <h2 style={{margin: "0 auto 0 auto", padding: "0 0 0.5rem 0"}}>Filter</h2>
-            <Accordion>
+            <Accordion style={{padding: "0 0 0.5rem 0"}}>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
                     <Accordion.Body>
@@ -62,6 +63,7 @@ function Sidebar(props) {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
+            <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
         </div>
     );
 }

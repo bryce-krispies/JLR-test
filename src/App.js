@@ -6,10 +6,11 @@ import Papa from 'papaparse';
 import csvFile from './CDTData.csv';
 
 function App() {
+  const [records, setRecords] = useState([]);
   const [filterSpecs, setFilterSpecs] = useState([]);
   const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
-  const [records, setRecords] = useState([]);
+  const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
   useEffect(()=>{
     Papa.parse(csvFile, {
@@ -66,12 +67,14 @@ function App() {
         filterSpecs={filterSpecs}
         checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
         checkedCells={checkedCells} setCheckedCells={setCheckedCells}
+        removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
       />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization
         records={records}
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
+        removeDuplicates={removeDuplicates}
       />
     </div>
   );

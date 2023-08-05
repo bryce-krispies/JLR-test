@@ -2,8 +2,6 @@ import './Visualization.css';
 import Table from 'react-bootstrap/Table';
 
 function Visualization(props) {
-    const removeDuplicates = false;
-    
     return (
         <div className="vis-container">
             <div className="table-container table-responsive">
@@ -23,7 +21,7 @@ function Visualization(props) {
                     </thead>
                     <tbody>
                         {
-                            removeDuplicates ? 
+                            props.removeDuplicates ? 
                                 Array.from(new Set(props.records.filter((entry) => {
                                     if (props.checkedCells.includes(entry['Cell'])) {
                                         return true;
