@@ -5,6 +5,11 @@ function Visualization(props) {
     function filterRows() {
         return (
             props.records.filter((entry) => {
+                //date filtering
+                let splitDatetime = entry['TestDateTime'].split("/");
+                if (new Date(props.selectedDateRange.startDate) > new Date(splitDatetime[1]+"/"+splitDatetime[0]+"/"+splitDatetime[2])) return false;
+                if (new Date(props.selectedDateRange.endDate) < new Date(splitDatetime[1]+"/"+splitDatetime[0]+"/"+splitDatetime[2])) return false;
+
                 //cell filtering
                 if (!props.checkedCells.includes(entry['Cell'])) {
                     return false;
@@ -27,7 +32,6 @@ function Visualization(props) {
                         break;
                     default:
                 }
-
                 if (props.selectedIwrRange.enableSecondCond) {
                     let passesSecondCond = true;
                     switch(props.selectedIwrRange.secondIneq) {

@@ -77,6 +77,30 @@ function Sidebar(props) {
         );
     }
 
+    function DatetimeItem() {
+        return (
+            <Accordion.Item eventKey="1">
+                <Accordion.Header><h5 style={{margin: "0"}}>Datetime Range</h5></Accordion.Header>
+                <Accordion.Body>
+                    <p style={{margin: "0", padding: "0 0 0.5rem 0"}}>Start</p>
+                    <input
+                        type="datetime-local"
+                        style={{width: "100%"}}
+                        defaultValue={props.selectedDateRange.startDate}
+                        onChange={(e) => props.setSelectedDateRange({startDate: e.target.value, endDate: props.selectedDateRange.endDate})}
+                    />
+                    <p style={{margin: "0", padding: "1rem 0 0.5rem 0"}}>End</p>
+                    <input
+                        type="datetime-local"
+                        style={{width: "100%"}}
+                        defaultValue={props.selectedDateRange.endDate}
+                        onChange={(e) => props.setSelectedDateRange({startDate: props.selectedDateRange.startDate, endDate: e.target.value})}
+                    />
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
     function CellItem() {
         return (
             <Accordion.Item eventKey="2">
@@ -156,6 +180,7 @@ function Sidebar(props) {
             <h2 style={{margin: "0 auto 0 auto", padding: "0 0 0.5rem 0"}}>Filter</h2>
             <Accordion style={{padding: "0 0 0.5rem 0"}}>
                 <ColumnItem/>
+                <DatetimeItem/>
                 <CellItem/>
                 <IWRItem/>
             </Accordion>
