@@ -10,7 +10,7 @@ function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
   const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
-  const [enableSecondCond, setEnableSecondCond] = useState(false);
+  const [selectedIwrRange, setSelectedIwrRange] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
   useEffect(()=>{
@@ -58,6 +58,7 @@ function App() {
         setFilterSpecs(JSON.parse(JSON.stringify(temp)));
         setCheckedColumns(JSON.parse(JSON.stringify(Object.keys(input.data[0]))));
         setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
+        setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
       }
     });
   }, []);
@@ -68,8 +69,8 @@ function App() {
         filterSpecs={filterSpecs}
         checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
         checkedCells={checkedCells} setCheckedCells={setCheckedCells}
+        selectedIwrRange={selectedIwrRange} setSelectedIwrRange={setSelectedIwrRange}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
-        enableSecondCond={enableSecondCond} setEnableSecondCond={setEnableSecondCond}
       />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization
@@ -77,7 +78,6 @@ function App() {
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
         removeDuplicates={removeDuplicates}
-        enableSecondCond={enableSecondCond}
       />
     </div>
   );
