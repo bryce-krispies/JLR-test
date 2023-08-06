@@ -62,6 +62,28 @@ function Sidebar(props) {
                         </Form>
                     </Accordion.Body>
                 </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
+                    <Accordion.Body>
+                        <Button size="sm" style={{margin: "0 0 0.25rem 0"}}>Enable Second Condition</Button>
+                        <Form.Select>
+                            <option value="0">Less Than</option>
+                            <option value="1">Less Than Or Equal To</option>
+                            <option value="2">Greater Than Or Equal To</option>
+                            <option value="3">Greater Than Or Equal To</option>
+                        </Form.Select>
+                        <Form.Control type="number" placeholder="Enter value" style={{margin: "0.25rem 0"}}/>
+                        <Form.Check inline label="AND" type="radio" name="group1" disabled/>
+                        <Form.Check inline label="OR" type="radio" name="group1" disabled/>
+                        <Form.Select disabled readOnly style={{margin: "0.25rem 0"}}>
+                            <option value="0">Less Than</option>
+                            <option value="1">Less Than Or Equal To</option>
+                            <option value="2">Greater Than Or Equal To</option>
+                            <option value="3">Greater Than Or Equal To</option>
+                        </Form.Select>
+                        <Form.Control type="number" placeholder="Enter value" disabled readOnly/>
+                    </Accordion.Body>
+                </Accordion.Item>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
         </div>
