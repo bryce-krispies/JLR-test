@@ -70,7 +70,7 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
-                        <Form.Check name={label} onClick={(e) => columnChecked(e.target.checked, label)} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label}/>
+                        <Form.Check name={label} onClick={(e) => columnChecked(e.target.checked, label)} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label} key={label}/>
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -107,7 +107,7 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
-                        <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label}/>
+                        <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label} key={label}/>
                     )}
                 </Accordion.Body>
             </Accordion.Item>
