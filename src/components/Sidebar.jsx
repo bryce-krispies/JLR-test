@@ -48,7 +48,7 @@ function Sidebar(props) {
                 temp.firstIneq = value;
                 break;
             case "firstIneqValue":
-                temp.firstIneqValue = value;
+                temp.firstIneqValue = parseFloat(value);
                 break;
             case "possibility":
                 temp.possibility = value;
@@ -57,7 +57,7 @@ function Sidebar(props) {
                 temp.secondIneq = value;
                 break;
             case "secondIneqValue":
-                temp.secondIneqValue = value;
+                temp.secondIneqValue = parseFloat(value);
                 break;
             default:
         }
@@ -86,7 +86,7 @@ function Sidebar(props) {
                         placeholder="Enter value"
                         style={{margin: "0.25rem 0"}}
                         defaultValue={props.selectedIwrRange.firstIneqValue}
-                        onChange={(e) => iwrRangeChanged("firstIneqValue", e.target.value)}
+                        onBlur={(e) => iwrRangeChanged("firstIneqValue", e.target.value)}
                     />
                     <div className={props.selectedIwrRange.enableSecondCond ? "" : "hide-element"}>
                         <Form.Check
@@ -107,7 +107,7 @@ function Sidebar(props) {
                             defaultChecked={props.selectedIwrRange.possibility === "or"}
                             onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
                         />
-                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => iwrRangeChanged("secondIneq", e.target.value)} defaultValue={props.selectedIwrRange.secondIneq}>
+                        <Form.Select style={{margin: "0.25rem 0"}} onBlur={(e) => iwrRangeChanged("secondIneq", e.target.value)} defaultValue={props.selectedIwrRange.secondIneq}>
                             <option value="lt">Less Than</option>
                             <option value="lte">Less Than Or Equal To</option>
                             <option value="gt">Greater Than</option>

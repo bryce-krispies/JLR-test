@@ -5,10 +5,61 @@ function Visualization(props) {
     function filterRows() {
         return (
             props.records.filter((entry) => {
-                if (props.checkedCells.includes(entry['Cell'])) {
-                    return true;
+                //cell filtering
+                if (!props.checkedCells.includes(entry['Cell'])) {
+                    return false;
                 }
-                return false;
+
+                //iwr filtering
+                let passesFirstCond = true;
+                switch(props.selectedIwrRange.firstIneq) {
+                    case "lt":
+                        if (!(props.selectedIwrRange.firstIneqValue > entry['IWR'])) passesFirstCond = false;
+                        break;
+                    case "lte":
+                        if (!(props.selectedIwrRange.firstIneqValue >= entry['IWR'])) passesFirstCond = false;
+                        break;
+                    case "gt":
+                        if (!(props.selectedIwrRange.firstIneqValue < entry['IWR'])) passesFirstCond = false;
+                        break;
+                    case "gte":
+                        if (!(props.selectedIwrRange.firstIneqValue <= entry['IWR'])) passesFirstCond = false;
+                        break;
+                    default:
+                }
+
+                if (props.selectedIwrRange.enableSecondCond) {
+                    let passesSecondCond = true;
+                    switch(props.selectedIwrRange.secondIneq) {
+                        case "lt":
+                            if (!(props.selectedIwrRange.secondIneqValue > entry['IWR']))
+                                passesSecondCond = false;
+                            break;
+                        case "lte":
+                            if (!(props.selectedIwrRange.secondIneqValue >= entry['IWR']))
+                                passesSecondCond = false;
+                            break;
+                        case "gt":
+                            if (!(props.selectedIwrRange.secondIneqValue < entry['IWR']))
+                                passesSecondCond = false;
+                            break;
+                        case "gte":
+                            if (!(props.selectedIwrRange.secondIneqValue <= entry['IWR']))
+                                passesSecondCond = false;
+                            break;
+                        default:
+                    }
+
+                    if ((props.selectedIwrRange.possibility === "and") && !(passesFirstCond && passesSecondCond)) {
+                        return false;
+                    } else if ((props.selectedIwrRange.possibility === "or") && !(passesFirstCond || passesSecondCond)) {
+                        return false;
+                    }
+                } else {
+                    if(!passesFirstCond) return false;
+                }
+
+                return true;
             })
         );
     }

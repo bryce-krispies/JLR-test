@@ -77,6 +77,7 @@ function App() {
         records={records}
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
+        selectedIwrRange={selectedIwrRange}
         removeDuplicates={removeDuplicates}
       />
     </div>
