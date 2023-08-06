@@ -19,8 +19,11 @@ function Visualization(props) {
                 //drive trace filtering
                 if (!props.checkedDriveTraces.includes(entry['DriveTrace'])) return false;
 
-                //vehicle id filtering
+                //engineer filtering
                 if (!props.checkedEngineers.includes(entry['Engineer'])) return false;
+
+                //driver filtering
+                if (!props.checkedDrivers.includes(entry['Driver'])) return false;
 
                 //iwr filtering
                 let passesFirstCond = true;

@@ -14,6 +14,7 @@ function App() {
   const [checkedVehicleIds, setCheckedVehicleIds] = useState([]);
   const [checkedDriveTraces, setCheckedDriveTraces] = useState([]);
   const [checkedEngineers, setCheckedEngineers] = useState([]);
+  const [checkedDrivers, setCheckedDrivers] = useState([]);
   const [selectedIwrRange, setSelectedIwrRange] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
@@ -72,6 +73,7 @@ function App() {
         setCheckedVehicleIds(JSON.parse(JSON.stringify(temp.vehicle_id)));
         setCheckedDriveTraces(JSON.parse(JSON.stringify(temp.drive_trace)));
         setCheckedEngineers(JSON.parse(JSON.stringify(temp.engineer)));
+        setCheckedDrivers(JSON.parse(JSON.stringify(temp.driver)));
         setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
       }
     });
@@ -87,6 +89,7 @@ function App() {
         checkedVehicleIds={checkedVehicleIds} setCheckedVehicleIds={setCheckedVehicleIds}
         checkedDriveTraces={checkedDriveTraces} setCheckedDriveTraces={setCheckedDriveTraces}
         checkedEngineers={checkedEngineers} setCheckedEngineers={setCheckedEngineers}
+        checkedDrivers={checkedDrivers} setCheckedDrivers={setCheckedDrivers}
         selectedIwrRange={selectedIwrRange} setSelectedIwrRange={setSelectedIwrRange}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
       />
@@ -99,6 +102,7 @@ function App() {
         checkedVehicleIds={checkedVehicleIds}
         checkedDriveTraces={checkedDriveTraces}
         checkedEngineers={checkedEngineers}
+        checkedDrivers={checkedDrivers}
         selectedIwrRange={selectedIwrRange}
         removeDuplicates={removeDuplicates}
       />

@@ -86,6 +86,22 @@ function Sidebar(props) {
         props.setCheckedEngineers(engineers);
     }
 
+    function driverChecked() {
+        var drivers = [...props.checkedDrivers];
+        for(var i = props.filterSpecs.driver.length - 1; i>=0; i--) {
+            var checkboxes = document.getElementsByName(props.filterSpecs.driver[i]);
+            for(var j = checkboxes.length - 1; j>=0; j--) {
+                var index = drivers.indexOf(checkboxes[j].id);
+                if(checkboxes[j].checked && index === -1) {
+                    drivers.push(checkboxes[j].id);
+                } else if(index !== -1 && !checkboxes[j].checked) {
+                    drivers.splice(index, 1);
+                }
+            }
+        }
+        props.setCheckedDrivers(drivers);
+    }
+
     function iwrRangeChanged(type, value) {
         let temp = props.selectedIwrRange;
         switch(type) {
@@ -201,6 +217,19 @@ function Sidebar(props) {
         );
     }
 
+    function DriverItem() {
+        return (
+            <Accordion.Item eventKey="6">
+                <Accordion.Header><h5 style={{margin: "0"}}>Driver</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.driver && props.filterSpecs.driver.map((label)=>
+                        <Form.Check name={label} onClick={(e) => driverChecked()} defaultChecked={props.checkedDrivers.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
     function IWRItem() {
         return (
             <Accordion.Item eventKey="7">
@@ -272,6 +301,7 @@ function Sidebar(props) {
                 <VehicleIdItem/>
                 <DriveTraceItem/>
                 <EngineerItem/>
+                <DriverItem/>
                 <IWRItem/>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
