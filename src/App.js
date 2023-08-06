@@ -11,6 +11,7 @@ function App() {
   const [selectedDateRange, setSelectedDateRange] = useState({});
   const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
+  const [checkedVehicleIds, setCheckedVehicleIds] = useState([]);
   const [selectedIwrRange, setSelectedIwrRange] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
@@ -66,6 +67,7 @@ function App() {
           endDate: temp.date[1].getFullYear() +"-" +(temp.date[1].getMonth()+1).toString().padStart(2, '0') +"-" +temp.date[1].getDate().toString().padStart(2, '0') +"T" +temp.date[1].getHours().toString().padStart(2, '0') +":" +temp.date[1].getMinutes().toString().padStart(2, '0')})));
         setCheckedColumns(JSON.parse(JSON.stringify(Object.keys(input.data[0]))));
         setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
+        setCheckedVehicleIds(JSON.parse(JSON.stringify(temp.vehicle_id)));
         setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
       }
     });
@@ -78,6 +80,7 @@ function App() {
         selectedDateRange={selectedDateRange} setSelectedDateRange={setSelectedDateRange}
         checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
         checkedCells={checkedCells} setCheckedCells={setCheckedCells}
+        checkedVehicleIds={checkedVehicleIds} setCheckedVehicleIds={setCheckedVehicleIds}
         selectedIwrRange={selectedIwrRange} setSelectedIwrRange={setSelectedIwrRange}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
       />
@@ -87,6 +90,7 @@ function App() {
         selectedDateRange={selectedDateRange}
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
+        checkedVehicleIds={checkedVehicleIds}
         selectedIwrRange={selectedIwrRange}
         removeDuplicates={removeDuplicates}
       />

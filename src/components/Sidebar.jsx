@@ -38,6 +38,22 @@ function Sidebar(props) {
         props.setCheckedCells(cells);
     }
 
+    function vehicleIdChecked() {
+        var vehicleIds = [...props.checkedVehicleIds];
+        for(var i = props.filterSpecs.vehicle_id.length - 1; i>=0; i--) {
+            var checkboxes = document.getElementsByName(props.filterSpecs.vehicle_id[i]);
+            for(var j = checkboxes.length - 1; j>=0; j--) {
+                var index = vehicleIds.indexOf(checkboxes[j].id);
+                if(checkboxes[j].checked && index === -1) {
+                    vehicleIds.push(checkboxes[j].id);
+                } else if(index !== -1 && !checkboxes[j].checked) {
+                    vehicleIds.splice(index, 1);
+                }
+            }
+        }
+        props.setCheckedVehicleIds(vehicleIds);
+    }
+
     function iwrRangeChanged(type, value) {
         let temp = props.selectedIwrRange;
         switch(type) {
@@ -70,7 +86,7 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
-                        <Form.Check name={label} onClick={(e) => columnChecked(e.target.checked, label)} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check name={label} onClick={(e) => columnChecked()} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label} key={label}/>
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -107,7 +123,20 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
-                        <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check name={label} onClick={(e) => cellChecked()} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
+    function VehicleIdItem() {
+        return (
+            <Accordion.Item eventKey="11">
+                <Accordion.Header><h5 style={{margin: "0"}}>Vehicle ID</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.vehicle_id && props.filterSpecs.vehicle_id.map((label)=>
+                        <Form.Check name={label} onClick={(e) => vehicleIdChecked()} defaultChecked={props.checkedVehicleIds.includes(label)} type="checkbox" id={label} label={label} key={label}/>
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -182,6 +211,7 @@ function Sidebar(props) {
                 <ColumnItem/>
                 <DatetimeItem/>
                 <CellItem/>
+                <VehicleIdItem/>
                 <IWRItem/>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>

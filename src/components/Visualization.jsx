@@ -15,6 +15,11 @@ function Visualization(props) {
                     return false;
                 }
 
+                //cell filtering
+                if (!props.checkedVehicleIds.includes(entry['VehicleID'])) {
+                    return false;
+                }
+
                 //iwr filtering
                 let passesFirstCond = true;
                 switch(props.selectedIwrRange.firstIneq) {
