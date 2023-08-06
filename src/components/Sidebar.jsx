@@ -64,9 +64,35 @@ function Sidebar(props) {
         props.setSelectedIwrRange(JSON.parse(JSON.stringify(temp)))
     }
 
-    function IWRItem() {
+    function ColumnItem() {
+        return (
+            <Accordion.Item eventKey="0">
+                <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
+                        <Form.Check name={label} onClick={(e) => columnChecked(e.target.checked, label)} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
+    function CellItem() {
         return (
             <Accordion.Item eventKey="2">
+                <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
+                        <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
+    function IWRItem() {
+        return (
+            <Accordion.Item eventKey="3">
                 <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
                 <Accordion.Body>
                     <Button
@@ -129,22 +155,8 @@ function Sidebar(props) {
         <div className="sidebar-container">
             <h2 style={{margin: "0 auto 0 auto", padding: "0 0 0.5rem 0"}}>Filter</h2>
             <Accordion style={{padding: "0 0 0.5rem 0"}}>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
-                    <Accordion.Body>
-                        {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
-                            <Form.Check name={label} onClick={(e) => columnChecked(e.target.checked, label)} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label}/>
-                        )}
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
-                    <Accordion.Body>
-                        {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
-                            <Form.Check name={label} onClick={(e) => cellChecked(e.target.checked, label)} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label}/>
-                        )}
-                    </Accordion.Body>
-                </Accordion.Item>
+                <ColumnItem/>
+                <CellItem/>
                 <IWRItem/>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
