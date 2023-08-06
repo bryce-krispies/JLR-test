@@ -12,6 +12,7 @@ function App() {
   const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
   const [checkedVehicleIds, setCheckedVehicleIds] = useState([]);
+  const [checkedDriveTraces, setCheckedDriveTraces] = useState([]);
   const [selectedIwrRange, setSelectedIwrRange] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
@@ -68,6 +69,7 @@ function App() {
         setCheckedColumns(JSON.parse(JSON.stringify(Object.keys(input.data[0]))));
         setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
         setCheckedVehicleIds(JSON.parse(JSON.stringify(temp.vehicle_id)));
+        setCheckedDriveTraces(JSON.parse(JSON.stringify(temp.drive_trace)));
         setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
       }
     });
@@ -81,6 +83,7 @@ function App() {
         checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
         checkedCells={checkedCells} setCheckedCells={setCheckedCells}
         checkedVehicleIds={checkedVehicleIds} setCheckedVehicleIds={setCheckedVehicleIds}
+        checkedDriveTraces={checkedDriveTraces} setCheckedDriveTraces={setCheckedDriveTraces}
         selectedIwrRange={selectedIwrRange} setSelectedIwrRange={setSelectedIwrRange}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
       />
@@ -91,6 +94,7 @@ function App() {
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
         checkedVehicleIds={checkedVehicleIds}
+        checkedDriveTraces={checkedDriveTraces}
         selectedIwrRange={selectedIwrRange}
         removeDuplicates={removeDuplicates}
       />

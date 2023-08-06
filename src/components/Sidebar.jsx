@@ -54,6 +54,22 @@ function Sidebar(props) {
         props.setCheckedVehicleIds(vehicleIds);
     }
 
+    function driveTraceChecked() {
+        var driveTraces = [...props.checkedDriveTraces];
+        for(var i = props.filterSpecs.drive_trace.length - 1; i>=0; i--) {
+            var checkboxes = document.getElementsByName(props.filterSpecs.drive_trace[i]);
+            for(var j = checkboxes.length - 1; j>=0; j--) {
+                var index = driveTraces.indexOf(checkboxes[j].id);
+                if(checkboxes[j].checked && index === -1) {
+                    driveTraces.push(checkboxes[j].id);
+                } else if(index !== -1 && !checkboxes[j].checked) {
+                    driveTraces.splice(index, 1);
+                }
+            }
+        }
+        props.setCheckedDriveTraces(driveTraces);
+    }
+
     function iwrRangeChanged(type, value) {
         let temp = props.selectedIwrRange;
         switch(type) {
@@ -132,7 +148,7 @@ function Sidebar(props) {
 
     function VehicleIdItem() {
         return (
-            <Accordion.Item eventKey="11">
+            <Accordion.Item eventKey="3">
                 <Accordion.Header><h5 style={{margin: "0"}}>Vehicle ID</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.vehicle_id && props.filterSpecs.vehicle_id.map((label)=>
@@ -143,9 +159,22 @@ function Sidebar(props) {
         );
     }
 
+    function DriveTraceItem() {
+        return (
+            <Accordion.Item eventKey="4">
+                <Accordion.Header><h5 style={{margin: "0"}}>Drive Trace</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.drive_trace && props.filterSpecs.drive_trace.map((label)=>
+                        <Form.Check name={label} onClick={(e) => driveTraceChecked()} defaultChecked={props.checkedDriveTraces.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
     function IWRItem() {
         return (
-            <Accordion.Item eventKey="3">
+            <Accordion.Item eventKey="7">
                 <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
                 <Accordion.Body>
                     <Button
@@ -212,6 +241,7 @@ function Sidebar(props) {
                 <DatetimeItem/>
                 <CellItem/>
                 <VehicleIdItem/>
+                <DriveTraceItem/>
                 <IWRItem/>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>

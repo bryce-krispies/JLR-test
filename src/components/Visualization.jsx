@@ -15,8 +15,13 @@ function Visualization(props) {
                     return false;
                 }
 
-                //cell filtering
+                //vehicle id filtering
                 if (!props.checkedVehicleIds.includes(entry['VehicleID'])) {
+                    return false;
+                }
+
+                //drive trace filtering
+                if (!props.checkedDriveTraces.includes(entry['DriveTrace'])) {
                     return false;
                 }
 
