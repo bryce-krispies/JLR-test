@@ -11,19 +11,16 @@ function Visualization(props) {
                 if (new Date(props.selectedDateRange.endDate) < new Date(splitDatetime[1]+"/"+splitDatetime[0]+"/"+splitDatetime[2])) return false;
 
                 //cell filtering
-                if (!props.checkedCells.includes(entry['Cell'])) {
-                    return false;
-                }
+                if (!props.checkedCells.includes(entry['Cell'])) return false;
 
                 //vehicle id filtering
-                if (!props.checkedVehicleIds.includes(entry['VehicleID'])) {
-                    return false;
-                }
+                if (!props.checkedVehicleIds.includes(entry['VehicleID'])) return false;
 
                 //drive trace filtering
-                if (!props.checkedDriveTraces.includes(entry['DriveTrace'])) {
-                    return false;
-                }
+                if (!props.checkedDriveTraces.includes(entry['DriveTrace'])) return false;
+
+                //vehicle id filtering
+                if (!props.checkedEngineers.includes(entry['Engineer'])) return false;
 
                 //iwr filtering
                 let passesFirstCond = true;

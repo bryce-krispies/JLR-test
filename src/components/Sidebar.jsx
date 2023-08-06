@@ -70,6 +70,22 @@ function Sidebar(props) {
         props.setCheckedDriveTraces(driveTraces);
     }
 
+    function engineerChecked() {
+        var engineers = [...props.checkedEngineers];
+        for(var i = props.filterSpecs.engineer.length - 1; i>=0; i--) {
+            var checkboxes = document.getElementsByName(props.filterSpecs.engineer[i]);
+            for(var j = checkboxes.length - 1; j>=0; j--) {
+                var index = engineers.indexOf(checkboxes[j].id);
+                if(checkboxes[j].checked && index === -1) {
+                    engineers.push(checkboxes[j].id);
+                } else if(index !== -1 && !checkboxes[j].checked) {
+                    engineers.splice(index, 1);
+                }
+            }
+        }
+        props.setCheckedEngineers(engineers);
+    }
+
     function iwrRangeChanged(type, value) {
         let temp = props.selectedIwrRange;
         switch(type) {
@@ -172,6 +188,19 @@ function Sidebar(props) {
         );
     }
 
+    function EngineerItem() {
+        return (
+            <Accordion.Item eventKey="5">
+                <Accordion.Header><h5 style={{margin: "0"}}>Engineer</h5></Accordion.Header>
+                <Accordion.Body>
+                    {props.filterSpecs.engineer && props.filterSpecs.engineer.map((label)=>
+                        <Form.Check name={label} onClick={(e) => engineerChecked()} defaultChecked={props.checkedEngineers.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                    )}
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
     function IWRItem() {
         return (
             <Accordion.Item eventKey="7">
@@ -242,6 +271,7 @@ function Sidebar(props) {
                 <CellItem/>
                 <VehicleIdItem/>
                 <DriveTraceItem/>
+                <EngineerItem/>
                 <IWRItem/>
             </Accordion>
             <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
