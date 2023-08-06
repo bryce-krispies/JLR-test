@@ -24,3 +24,7 @@
 .accordion-body {
   padding: 0.5rem !important;
 }
+
+.hide-element {
+  display: none;
+}

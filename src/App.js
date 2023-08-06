@@ -10,6 +10,7 @@ function App() {
   const [filterSpecs, setFilterSpecs] = useState([]);
   const [checkedColumns, setCheckedColumns] = useState([]);
   const [checkedCells, setCheckedCells] = useState([]);
+  const [enableSecondCond, setEnableSecondCond] = useState(false);
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
   useEffect(()=>{
@@ -68,6 +69,7 @@ function App() {
         checkedColumns={checkedColumns} setCheckedColumns={setCheckedColumns}
         checkedCells={checkedCells} setCheckedCells={setCheckedCells}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
+        enableSecondCond={enableSecondCond} setEnableSecondCond={setEnableSecondCond}
       />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization
@@ -75,6 +77,7 @@ function App() {
         checkedColumns={checkedColumns}
         checkedCells={checkedCells}
         removeDuplicates={removeDuplicates}
+        enableSecondCond={enableSecondCond}
       />
     </div>
   );
