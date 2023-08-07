@@ -77,6 +77,9 @@ function Visualization(props) {
                 //total co filtering
                 if (!CheckIfEntryMeetsRange(props.selectedTotalCoRange, entry['TotalCOgkm'])) return false;
 
+                //total co2 filtering
+                if (!CheckIfEntryMeetsRange(props.selectedTotalCo2Range, entry['TotalCO2gkm'])) return false;
+
                 return true;
             })
         );

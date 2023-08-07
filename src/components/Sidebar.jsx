@@ -266,6 +266,63 @@ function Sidebar(props) {
         );
     }
 
+    function TotalCo2Item() {
+        return (
+            <Accordion.Item eventKey="10">
+                <Accordion.Header><h5 style={{margin: "0"}}>TotalCO2gkm Range</h5></Accordion.Header>
+                <Accordion.Body>
+                    <Form.Select
+                        onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                        defaultValue={props.selectedTotalCo2Range.firstIneq}
+                    >
+                        <option value="lt">Less Than</option>
+                        <option value="lte">Less Than Or Equal To</option>
+                        <option value="gt">Greater Than</option>
+                        <option value="gte">Greater Than Or Equal To</option>
+                    </Form.Select>
+                    <Form.Control
+                        type="number" placeholder="Enter value" style={{margin: "0.25rem 0"}}
+                        defaultValue={props.selectedTotalCo2Range.firstIneqValue}
+                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                    />
+                    <div className={props.selectedTotalCo2Range.enableSecondCond ? "show-element" : "hide-element"}>
+                        <div className="and-or-container">
+                            <Form.Check
+                                label="AND" type="radio" name="possibilityRadio" value="and"
+                                defaultChecked={props.selectedTotalCo2Range.possibility === "and"}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                            />
+                            <Form.Check
+                                label="OR" type="radio" name="possibilityRadio" value="or"
+                                defaultChecked={props.selectedTotalCo2Range.possibility === "or"}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                            />
+                        </div>
+                        <Form.Select
+                            style={{margin: "0.25rem 0"}}
+                            onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                            defaultValue={props.selectedTotalCo2Range.secondIneq}
+                        >
+                            <option value="lt">Less Than</option>
+                            <option value="lte">Less Than Or Equal To</option>
+                            <option value="gt">Greater Than</option>
+                            <option value="gte">Greater Than Or Equal To</option>
+                        </Form.Select>
+                        <Form.Control
+                            type="number" placeholder="Enter value" defaultValue={props.selectedTotalCo2Range.secondIneqValue}
+                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                        />
+                    </div>
+                    <Form.Switch
+                        label={props.selectedTotalCo2Range.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
+                        defaultChecked={props.selectedTotalCo2Range.enableSecondCond}
+                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedTotalCo2Range.enableSecondCond, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                    />
+                </Accordion.Body>
+            </Accordion.Item>
+        );
+    }
+
     return (
         <div className="sidebar-container">
             <h2 style={{margin: "0 auto 0 auto"}}>Filter</h2>
@@ -299,6 +356,7 @@ function Sidebar(props) {
                     <IwrItem/>
                     <RmsseItem/>
                     <TotalCoItem/>
+                    <TotalCo2Item/>
                 </Accordion>
                 <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
             </div>

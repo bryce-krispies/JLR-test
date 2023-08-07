@@ -18,6 +18,7 @@ function App() {
   const [selectedIwrRange, setSelectedIwrRange] = useState({});
   const [selectedRmsseRange, setSelectedRmsseRange] = useState({});
   const [selectedTotalCoRange, setSelectedTotalCoRange] = useState({});
+  const [selectedTotalCo2Range, setSelectedTotalCo2Range] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
   useEffect(()=>{
@@ -79,6 +80,7 @@ function App() {
         setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
         setSelectedRmsseRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.rmsse[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.rmsse[1]})));
         setSelectedTotalCoRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co_gkm[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co_gkm[1]})));
+        setSelectedTotalCo2Range(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co2_gkm[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co2_gkm[1]})));
       }
     });
   }, []);
@@ -88,16 +90,17 @@ function App() {
       <Sidebar
         filterSpecs={filterSpecs}
         checkedColumns={checkedColumns}             setCheckedColumns={setCheckedColumns}
-        selectedDateRange={selectedDateRange}       setSelectedDateRange={setSelectedDateRange}
-        checkedCells={checkedCells}                 setCheckedCells={setCheckedCells}
-        checkedVehicleIds={checkedVehicleIds}       setCheckedVehicleIds={setCheckedVehicleIds}
-        checkedDriveTraces={checkedDriveTraces}     setCheckedDriveTraces={setCheckedDriveTraces}
-        checkedEngineers={checkedEngineers}         setCheckedEngineers={setCheckedEngineers}
-        checkedDrivers={checkedDrivers}             setCheckedDrivers={setCheckedDrivers}
-        selectedIwrRange={selectedIwrRange}         setSelectedIwrRange={setSelectedIwrRange}
-        selectedRmsseRange={selectedRmsseRange}     setSelectedRmsseRange={setSelectedRmsseRange}
-        selectedTotalCoRange={selectedTotalCoRange} setSelectedTotalCoRange={setSelectedTotalCoRange}
-        removeDuplicates={removeDuplicates}         setRemoveDuplicates={setRemoveDuplicates}
+        selectedDateRange={selectedDateRange}         setSelectedDateRange={setSelectedDateRange}
+        checkedCells={checkedCells}                   setCheckedCells={setCheckedCells}
+        checkedVehicleIds={checkedVehicleIds}         setCheckedVehicleIds={setCheckedVehicleIds}
+        checkedDriveTraces={checkedDriveTraces}       setCheckedDriveTraces={setCheckedDriveTraces}
+        checkedEngineers={checkedEngineers}           setCheckedEngineers={setCheckedEngineers}
+        checkedDrivers={checkedDrivers}               setCheckedDrivers={setCheckedDrivers}
+        selectedIwrRange={selectedIwrRange}           setSelectedIwrRange={setSelectedIwrRange}
+        selectedRmsseRange={selectedRmsseRange}       setSelectedRmsseRange={setSelectedRmsseRange}
+        selectedTotalCoRange={selectedTotalCoRange}   setSelectedTotalCoRange={setSelectedTotalCoRange}
+        selectedTotalCo2Range={selectedTotalCo2Range} setSelectedTotalCo2Range={setSelectedTotalCo2Range}
+        removeDuplicates={removeDuplicates}           setRemoveDuplicates={setRemoveDuplicates}
       />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization
@@ -112,6 +115,7 @@ function App() {
         selectedIwrRange={selectedIwrRange}
         selectedRmsseRange={selectedRmsseRange}
         selectedTotalCoRange={selectedTotalCoRange}
+        selectedTotalCo2Range={selectedTotalCo2Range}
         removeDuplicates={removeDuplicates}
       />
     </div>
