@@ -7,6 +7,7 @@
   display: grid;
   grid-template-rows: fit-content(100%) auto;
   gap: 0.5rem;
+  background-color: #e8e8e8;
 }
 
 .accordion-button {

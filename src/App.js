@@ -89,7 +89,7 @@ function App() {
     <div className="app">
       <Sidebar
         filterSpecs={filterSpecs}
-        checkedColumns={checkedColumns}             setCheckedColumns={setCheckedColumns}
+        checkedColumns={checkedColumns}               setCheckedColumns={setCheckedColumns}
         selectedDateRange={selectedDateRange}         setSelectedDateRange={setSelectedDateRange}
         checkedCells={checkedCells}                   setCheckedCells={setCheckedCells}
         checkedVehicleIds={checkedVehicleIds}         setCheckedVehicleIds={setCheckedVehicleIds}
@@ -102,7 +102,6 @@ function App() {
         selectedTotalCo2Range={selectedTotalCo2Range} setSelectedTotalCo2Range={setSelectedTotalCo2Range}
         removeDuplicates={removeDuplicates}           setRemoveDuplicates={setRemoveDuplicates}
       />
-      <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
       <Visualization
         records={records}
         checkedColumns={checkedColumns}
