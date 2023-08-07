@@ -22,8 +22,8 @@ function Sidebar(props) {
         setCheckedItems(checkedItems);
     }
 
-    function iwrRangeChanged(type, value) {
-        let temp = props.selectedIwrRange;
+    function rangeChanged(type, value, selectedRange, setSelectedRange) {
+        let temp = selectedRange;
         switch(type) {
             case "enableSecondCond":
                 temp.enableSecondCond = value;
@@ -45,33 +45,7 @@ function Sidebar(props) {
                 break;
             default:
         }
-        props.setSelectedIwrRange(JSON.parse(JSON.stringify(temp)))
-    }
-
-    function rmsseRangeChanged(type, value) {
-        let temp = props.selectedRmsseRange;
-        switch(type) {
-            case "enableSecondCond":
-                temp.enableSecondCond = value;
-                break;
-            case "firstIneq":
-                temp.firstIneq = value;
-                break;
-            case "firstIneqValue":
-                temp.firstIneqValue = parseFloat(value);
-                break;
-            case "possibility":
-                temp.possibility = value;
-                break;
-            case "secondIneq":
-                temp.secondIneq = value;
-                break;
-            case "secondIneqValue":
-                temp.secondIneqValue = parseFloat(value);
-                break;
-            default:
-        }
-        props.setSelectedRmsseRange(JSON.parse(JSON.stringify(temp)))
+        setSelectedRange(JSON.parse(JSON.stringify(temp)))
     }
 
     function ColumnItem() {
@@ -205,7 +179,7 @@ function Sidebar(props) {
             <Accordion.Item eventKey="7">
                 <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
                 <Accordion.Body>
-                    <Form.Select onChange={(e) => iwrRangeChanged("firstIneq", e.target.value)} defaultValue={props.selectedIwrRange.firstIneq}>
+                    <Form.Select onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)} defaultValue={props.selectedIwrRange.firstIneq}>
                         <option value="lt">Less Than</option>
                         <option value="lte">Less Than Or Equal To</option>
                         <option value="gt">Greater Than</option>
@@ -216,7 +190,7 @@ function Sidebar(props) {
                         placeholder="Enter value"
                         style={{margin: "0.25rem 0"}}
                         defaultValue={props.selectedIwrRange.firstIneqValue}
-                        onBlur={(e) => iwrRangeChanged("firstIneqValue", e.target.value)}
+                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
                     />
                     <div className={props.selectedIwrRange.enableSecondCond ? "show-element" : "hide-element"}>
                         <div className="and-or-container">
@@ -226,7 +200,7 @@ function Sidebar(props) {
                                 name="possibilityRadio"
                                 value="and"
                                 defaultChecked={props.selectedIwrRange.possibility === "and"}
-                                onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
                             />
                             <Form.Check
                                 label="OR"
@@ -234,10 +208,10 @@ function Sidebar(props) {
                                 name="possibilityRadio"
                                 value="or"
                                 defaultChecked={props.selectedIwrRange.possibility === "or"}
-                                onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
                             />
                         </div>
-                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => iwrRangeChanged("secondIneq", e.target.value)} defaultValue={props.selectedIwrRange.secondIneq}>
+                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)} defaultValue={props.selectedIwrRange.secondIneq}>
                             <option value="lt">Less Than</option>
                             <option value="lte">Less Than Or Equal To</option>
                             <option value="gt">Greater Than</option>
@@ -247,13 +221,13 @@ function Sidebar(props) {
                             type="number"
                             placeholder="Enter value"
                             defaultValue={props.selectedIwrRange.secondIneqValue}
-                            onBlur={(e) => iwrRangeChanged("secondIneqValue", e.target.value)}
+                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
                         />
                     </div>
                     <Form.Switch
                         label={props.selectedIwrRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
                         defaultChecked={props.selectedIwrRange.enableSecondCond}
-                        onChange={(e) => iwrRangeChanged("enableSecondCond", !props.selectedIwrRange.enableSecondCond)}
+                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedIwrRange.enableSecondCond, props.selectedIwrRange, props.setSelectedIwrRange)}
                     />
                 </Accordion.Body>
             </Accordion.Item>
@@ -265,7 +239,7 @@ function Sidebar(props) {
             <Accordion.Item eventKey="8">
                 <Accordion.Header><h5 style={{margin: "0"}}>RMSSE Range</h5></Accordion.Header>
                 <Accordion.Body>
-                    <Form.Select onChange={(e) => rmsseRangeChanged("firstIneq", e.target.value)} defaultValue={props.selectedRmsseRange.firstIneq}>
+                    <Form.Select onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)} defaultValue={props.selectedRmsseRange.firstIneq}>
                         <option value="lt">Less Than</option>
                         <option value="lte">Less Than Or Equal To</option>
                         <option value="gt">Greater Than</option>
@@ -276,7 +250,7 @@ function Sidebar(props) {
                         placeholder="Enter value"
                         style={{margin: "0.25rem 0"}}
                         defaultValue={props.selectedRmsseRange.firstIneqValue}
-                        onBlur={(e) => rmsseRangeChanged("firstIneqValue", e.target.value)}
+                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
                     />
                     <div className={props.selectedRmsseRange.enableSecondCond ? "show-element" : "hide-element"}>
                         <div className="and-or-container">
@@ -286,7 +260,7 @@ function Sidebar(props) {
                                 name="possibilityRadio"
                                 value="and"
                                 defaultChecked={props.selectedRmsseRange.possibility === "and"}
-                                onClick={(e) => rmsseRangeChanged("possibility", e.target.value)}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
                             />
                             <Form.Check
                                 label="OR"
@@ -294,10 +268,10 @@ function Sidebar(props) {
                                 name="possibilityRadio"
                                 value="or"
                                 defaultChecked={props.selectedRmsseRange.possibility === "or"}
-                                onClick={(e) => rmsseRangeChanged("possibility", e.target.value)}
+                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
                             />
                         </div>
-                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => rmsseRangeChanged("secondIneq", e.target.value)} defaultValue={props.selectedRmsseRange.secondIneq}>
+                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)} defaultValue={props.selectedRmsseRange.secondIneq}>
                             <option value="lt">Less Than</option>
                             <option value="lte">Less Than Or Equal To</option>
                             <option value="gt">Greater Than</option>
@@ -307,13 +281,13 @@ function Sidebar(props) {
                             type="number"
                             placeholder="Enter value"
                             defaultValue={props.selectedRmsseRange.secondIneqValue}
-                            onBlur={(e) => rmsseRangeChanged("secondIneqValue", e.target.value)}
+                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
                         />
                     </div>
                     <Form.Switch
                         label={props.selectedRmsseRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
                         defaultChecked={props.selectedRmsseRange.enableSecondCond}
-                        onChange={(e) => rmsseRangeChanged("enableSecondCond", !props.selectedRmsseRange.enableSecondCond)}
+                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedRmsseRange.enableSecondCond, props.selectedRmsseRange, props.setSelectedRmsseRange)}
                     />
                 </Accordion.Body>
             </Accordion.Item>
