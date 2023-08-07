@@ -95,7 +95,7 @@ function Visualization(props) {
     return (
         <div className="vis-container">
             <div className="table-container table-responsive">
-                <Table striped bordered hover className="testing">
+                <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
                             {
