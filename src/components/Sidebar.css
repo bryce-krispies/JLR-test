@@ -41,3 +41,19 @@
   justify-content: center;
   gap: 2rem;
 }
+
+.accordion-header {
+  margin: 0;
+}
+
+.range-entry {
+  margin: 0.25rem 0;
+}
+
+.sidebar-header {
+  margin: 0 auto;
+}
+
+.accordion-container {
+  padding: 0 0 0.5rem 0;
+}

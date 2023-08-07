@@ -2,7 +2,6 @@ import React from "react";
 import './Sidebar.css';
 import Accordion from "react-bootstrap/Accordion";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 function Sidebar(props) {
 
@@ -51,7 +50,7 @@ function Sidebar(props) {
     function CheckboxListItem(props) {
         return (
             <Accordion.Item eventKey={props.eventKey}>
-                <Accordion.Header><h5 style={{margin: "0"}}>{props.header}</h5></Accordion.Header>
+                <Accordion.Header><h5 className="accordion-header">{props.header}</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpec && props.filterSpec.map((label)=>
                         <Form.Check
@@ -68,7 +67,7 @@ function Sidebar(props) {
     function DatetimeItem() {
         return (
             <Accordion.Item eventKey="1">
-                <Accordion.Header><h5 style={{margin: "0"}}>Datetime Range</h5></Accordion.Header>
+                <Accordion.Header><h5 className="accordion-header">Datetime Range</h5></Accordion.Header>
                 <Accordion.Body>
                     <p style={{margin: "0", padding: "0 0 0.5rem 0"}}>Start</p>
                     <input
@@ -89,134 +88,14 @@ function Sidebar(props) {
         );
     }
 
-    function IwrItem() {
-        return (
-            <Accordion.Item eventKey="7">
-                <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
-                <Accordion.Body>
-                    <Form.Select onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)} defaultValue={props.selectedIwrRange.firstIneq}>
-                        <option value="lt">Less Than</option>
-                        <option value="lte">Less Than Or Equal To</option>
-                        <option value="gt">Greater Than</option>
-                        <option value="gte">Greater Than Or Equal To</option>
-                    </Form.Select>
-                    <Form.Control
-                        type="number"
-                        placeholder="Enter value"
-                        style={{margin: "0.25rem 0"}}
-                        defaultValue={props.selectedIwrRange.firstIneqValue}
-                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
-                    />
-                    <div className={props.selectedIwrRange.enableSecondCond ? "show-element" : "hide-element"}>
-                        <div className="and-or-container">
-                            <Form.Check
-                                label="AND"
-                                type="radio"
-                                name="possibilityRadio"
-                                value="and"
-                                defaultChecked={props.selectedIwrRange.possibility === "and"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
-                            />
-                            <Form.Check
-                                label="OR"
-                                type="radio"
-                                name="possibilityRadio"
-                                value="or"
-                                defaultChecked={props.selectedIwrRange.possibility === "or"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
-                            />
-                        </div>
-                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)} defaultValue={props.selectedIwrRange.secondIneq}>
-                            <option value="lt">Less Than</option>
-                            <option value="lte">Less Than Or Equal To</option>
-                            <option value="gt">Greater Than</option>
-                            <option value="gte">Greater Than Or Equal To</option>
-                        </Form.Select>
-                        <Form.Control
-                            type="number"
-                            placeholder="Enter value"
-                            defaultValue={props.selectedIwrRange.secondIneqValue}
-                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedIwrRange, props.setSelectedIwrRange)}
-                        />
-                    </div>
-                    <Form.Switch
-                        label={props.selectedIwrRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
-                        defaultChecked={props.selectedIwrRange.enableSecondCond}
-                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedIwrRange.enableSecondCond, props.selectedIwrRange, props.setSelectedIwrRange)}
-                    />
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
+    function RangeItem(props) {
 
-    function RmsseItem() {
-        return (
-            <Accordion.Item eventKey="8">
-                <Accordion.Header><h5 style={{margin: "0"}}>RMSSE Range</h5></Accordion.Header>
-                <Accordion.Body>
-                    <Form.Select onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)} defaultValue={props.selectedRmsseRange.firstIneq}>
-                        <option value="lt">Less Than</option>
-                        <option value="lte">Less Than Or Equal To</option>
-                        <option value="gt">Greater Than</option>
-                        <option value="gte">Greater Than Or Equal To</option>
-                    </Form.Select>
-                    <Form.Control
-                        type="number"
-                        placeholder="Enter value"
-                        style={{margin: "0.25rem 0"}}
-                        defaultValue={props.selectedRmsseRange.firstIneqValue}
-                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
-                    />
-                    <div className={props.selectedRmsseRange.enableSecondCond ? "show-element" : "hide-element"}>
-                        <div className="and-or-container">
-                            <Form.Check
-                                label="AND"
-                                type="radio"
-                                name="possibilityRadio"
-                                value="and"
-                                defaultChecked={props.selectedRmsseRange.possibility === "and"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
-                            />
-                            <Form.Check
-                                label="OR"
-                                type="radio"
-                                name="possibilityRadio"
-                                value="or"
-                                defaultChecked={props.selectedRmsseRange.possibility === "or"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
-                            />
-                        </div>
-                        <Form.Select style={{margin: "0.25rem 0"}} onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)} defaultValue={props.selectedRmsseRange.secondIneq}>
-                            <option value="lt">Less Than</option>
-                            <option value="lte">Less Than Or Equal To</option>
-                            <option value="gt">Greater Than</option>
-                            <option value="gte">Greater Than Or Equal To</option>
-                        </Form.Select>
-                        <Form.Control
-                            type="number"
-                            placeholder="Enter value"
-                            defaultValue={props.selectedRmsseRange.secondIneqValue}
-                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedRmsseRange, props.setSelectedRmsseRange)}
-                        />
-                    </div>
-                    <Form.Switch
-                        label={props.selectedRmsseRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
-                        defaultChecked={props.selectedRmsseRange.enableSecondCond}
-                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedRmsseRange.enableSecondCond, props.selectedRmsseRange, props.setSelectedRmsseRange)}
-                    />
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function TotalCoItem() {
-        return (
-            <Accordion.Item eventKey="9">
-                <Accordion.Header><h5 style={{margin: "0"}}>TotalCOgkm Range</h5></Accordion.Header>
-                <Accordion.Body>
+        function FirstCondition() {
+            return (
+                <div>
                     <Form.Select
-                        onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
-                        defaultValue={props.selectedTotalCoRange.firstIneq}
+                        onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedRange, props.setSelectedRange)}
+                        defaultValue={props.selectedRange.firstIneq}
                     >
                         <option value="lt">Less Than</option>
                         <option value="lte">Less Than Or Equal To</option>
@@ -224,56 +103,32 @@ function Sidebar(props) {
                         <option value="gte">Greater Than Or Equal To</option>
                     </Form.Select>
                     <Form.Control
-                        type="number" placeholder="Enter value" style={{margin: "0.25rem 0"}}
-                        defaultValue={props.selectedTotalCoRange.firstIneqValue}
-                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
+                        type="number" placeholder="Enter value" className="range-entry"
+                        defaultValue={props.selectedRange.firstIneqValue}
+                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedRange, props.setSelectedRange)}
                     />
-                    <div className={props.selectedTotalCoRange.enableSecondCond ? "show-element" : "hide-element"}>
-                        <div className="and-or-container">
-                            <Form.Check
-                                label="AND" type="radio" name="possibilityRadio" value="and"
-                                defaultChecked={props.selectedTotalCoRange.possibility === "and"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
-                            />
-                            <Form.Check
-                                label="OR" type="radio" name="possibilityRadio" value="or"
-                                defaultChecked={props.selectedTotalCoRange.possibility === "or"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
-                            />
-                        </div>
-                        <Form.Select
-                            style={{margin: "0.25rem 0"}}
-                            onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
-                            defaultValue={props.selectedTotalCoRange.secondIneq}
-                        >
-                            <option value="lt">Less Than</option>
-                            <option value="lte">Less Than Or Equal To</option>
-                            <option value="gt">Greater Than</option>
-                            <option value="gte">Greater Than Or Equal To</option>
-                        </Form.Select>
-                        <Form.Control
-                            type="number" placeholder="Enter value" defaultValue={props.selectedTotalCoRange.secondIneqValue}
-                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
+                </div>
+            );
+        }
+
+        function SecondCondition() {
+            return (
+                <div className={props.selectedRange.enableSecondCond ? "show-element" : "hide-element"}>
+                    <div className="and-or-container">
+                        <Form.Check
+                            label="AND" type="radio" name={"possibilityRadio" +props.header} value="and"
+                            defaultChecked={props.selectedRange.possibility === "and"}
+                            onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRange, props.setSelectedRange)}
+                        />
+                        <Form.Check
+                            label="OR" type="radio" name={"possibilityRadio" +props.header} value="or"
+                            defaultChecked={props.selectedRange.possibility === "or"}
+                            onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedRange, props.setSelectedRange)}
                         />
                     </div>
-                    <Form.Switch
-                        label={props.selectedTotalCoRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
-                        defaultChecked={props.selectedTotalCoRange.enableSecondCond}
-                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedTotalCoRange.enableSecondCond, props.selectedTotalCoRange, props.setSelectedTotalCoRange)}
-                    />
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function TotalCo2Item() {
-        return (
-            <Accordion.Item eventKey="10">
-                <Accordion.Header><h5 style={{margin: "0"}}>TotalCO2gkm Range</h5></Accordion.Header>
-                <Accordion.Body>
                     <Form.Select
-                        onChange={(e) => rangeChanged("firstIneq", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                        defaultValue={props.selectedTotalCo2Range.firstIneq}
+                        className="range-entry" defaultValue={props.selectedRange.secondIneq}
+                        onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedRange, props.setSelectedRange)}
                     >
                         <option value="lt">Less Than</option>
                         <option value="lte">Less Than Or Equal To</option>
@@ -281,43 +136,30 @@ function Sidebar(props) {
                         <option value="gte">Greater Than Or Equal To</option>
                     </Form.Select>
                     <Form.Control
-                        type="number" placeholder="Enter value" style={{margin: "0.25rem 0"}}
-                        defaultValue={props.selectedTotalCo2Range.firstIneqValue}
-                        onBlur={(e) => rangeChanged("firstIneqValue", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
+                        type="number" placeholder="Enter value" defaultValue={props.selectedRange.secondIneqValue}
+                        onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedRange, props.setSelectedRange)}
                     />
-                    <div className={props.selectedTotalCo2Range.enableSecondCond ? "show-element" : "hide-element"}>
-                        <div className="and-or-container">
-                            <Form.Check
-                                label="AND" type="radio" name="possibilityRadio" value="and"
-                                defaultChecked={props.selectedTotalCo2Range.possibility === "and"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                            />
-                            <Form.Check
-                                label="OR" type="radio" name="possibilityRadio" value="or"
-                                defaultChecked={props.selectedTotalCo2Range.possibility === "or"}
-                                onClick={(e) => rangeChanged("possibility", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                            />
-                        </div>
-                        <Form.Select
-                            style={{margin: "0.25rem 0"}}
-                            onChange={(e) => rangeChanged("secondIneq", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                            defaultValue={props.selectedTotalCo2Range.secondIneq}
-                        >
-                            <option value="lt">Less Than</option>
-                            <option value="lte">Less Than Or Equal To</option>
-                            <option value="gt">Greater Than</option>
-                            <option value="gte">Greater Than Or Equal To</option>
-                        </Form.Select>
-                        <Form.Control
-                            type="number" placeholder="Enter value" defaultValue={props.selectedTotalCo2Range.secondIneqValue}
-                            onBlur={(e) => rangeChanged("secondIneqValue", e.target.value, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                        />
-                    </div>
-                    <Form.Switch
-                        label={props.selectedTotalCo2Range.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
-                        defaultChecked={props.selectedTotalCo2Range.enableSecondCond}
-                        onChange={(e) => rangeChanged("enableSecondCond", !props.selectedTotalCo2Range.enableSecondCond, props.selectedTotalCo2Range, props.setSelectedTotalCo2Range)}
-                    />
+                </div>
+            );
+        }
+
+        function EnableSecondConditionSwitch() {
+            return (
+                <Form.Switch
+                    label={props.selectedRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
+                    defaultChecked={props.selectedRange.enableSecondCond}
+                    onChange={(e) => rangeChanged("enableSecondCond", !props.selectedRange.enableSecondCond, props.selectedRange, props.setSelectedRange)}
+                />
+            );
+        }
+
+        return (
+            <Accordion.Item eventKey={props.eventKey}>
+                <Accordion.Header><h5 className="accordion-header">{props.header}</h5></Accordion.Header>
+                <Accordion.Body>
+                    <FirstCondition/>
+                    <SecondCondition/>
+                    <EnableSecondConditionSwitch/>
                 </Accordion.Body>
             </Accordion.Item>
         );
@@ -325,9 +167,9 @@ function Sidebar(props) {
 
     return (
         <div className="sidebar-container">
-            <h2 style={{margin: "0 auto 0 auto"}}>Filter</h2>
+            <h2 className="sidebar-header">Filter</h2>
             <div style={{overflowY: "scroll"}}>
-                <Accordion style={{padding: "0 0 0.5rem 0"}}>
+                <Accordion className="accordion-container">
                     <CheckboxListItem
                         eventKey={0} header="Column" filterSpec={props.filterSpecs.column}
                         checkedBoxes={props.checkedColumns} setCheckedBoxes={props.setCheckedColumns}
@@ -353,10 +195,22 @@ function Sidebar(props) {
                         eventKey={6} header="Driver" filterSpec={props.filterSpecs.driver}
                         checkedBoxes={props.checkedDrivers} setCheckedBoxes={props.setCheckedDrivers}
                     />
-                    <IwrItem/>
-                    <RmsseItem/>
-                    <TotalCoItem/>
-                    <TotalCo2Item/>
+                    <RangeItem
+                        eventKey={7} header="IWR Range"
+                        selectedRange={props.selectedIwrRange} setSelectedRange={props.setSelectedIwrRange}
+                    />
+                    <RangeItem
+                        eventKey={8} header="RMSSE Range"
+                        selectedRange={props.selectedRmsseRange} setSelectedRange={props.setSelectedRmsseRange}
+                    />
+                    <RangeItem
+                        eventKey={9} header="TotalCOgkm Range"
+                        selectedRange={props.selectedTotalCoRange} setSelectedRange={props.setSelectedTotalCoRange}
+                    />
+                    <RangeItem
+                        eventKey={10} header="TotalCO2gkm Range"
+                        selectedRange={props.selectedTotalCo2Range} setSelectedRange={props.setSelectedTotalCo2Range}
+                    />
                 </Accordion>
                 <Form.Switch
                     style={{marginLeft: "0.5rem"}}
