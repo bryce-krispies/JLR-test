@@ -2,6 +2,8 @@ import React from "react";
 import './Sidebar.css';
 import Accordion from "react-bootstrap/Accordion";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 function Sidebar(props) {
 
@@ -59,6 +61,10 @@ function Sidebar(props) {
                             defaultChecked={props.checkedBoxes.includes(label)}
                         />
                     )}
+                    <Button className="reset-button" onClick={(e) => props.setCheckedBoxes(props.filterSpec)}>
+                        <RestartAltIcon/>
+                        <p style={{margin: "0"}} >Reset</p>
+                    </Button>
                 </Accordion.Body>
             </Accordion.Item>
         );
@@ -69,20 +75,24 @@ function Sidebar(props) {
             <Accordion.Item eventKey="1">
                 <Accordion.Header><h5 className="accordion-header">Datetime Range</h5></Accordion.Header>
                 <Accordion.Body>
-                    <p style={{margin: "0", padding: "0 0 0.5rem 0"}}>Start</p>
+                    <p style={{margin: "0", padding: "0 0 0.25rem 0"}}>Start</p>
                     <input
                         type="datetime-local"
                         style={{width: "100%"}}
                         defaultValue={props.selectedDateRange.startDate}
                         onChange={(e) => props.setSelectedDateRange({startDate: e.target.value, endDate: props.selectedDateRange.endDate})}
                     />
-                    <p style={{margin: "0", padding: "1rem 0 0.5rem 0"}}>End</p>
+                    <p style={{margin: "0", padding: "0.5rem 0 0.25rem 0"}}>End</p>
                     <input
                         type="datetime-local"
-                        style={{width: "100%"}}
+                        style={{width: "100%", marginBottom: "0.25rem"}}
                         defaultValue={props.selectedDateRange.endDate}
                         onChange={(e) => props.setSelectedDateRange({startDate: props.selectedDateRange.startDate, endDate: e.target.value})}
                     />
+                    <Button className="reset-button" onClick={(e) => props.setSelectedDateRange(props.filterSpecs.reset_date)}>
+                        <RestartAltIcon/>
+                        <p style={{margin: "0"}} >Reset</p>
+                    </Button>
                 </Accordion.Body>
             </Accordion.Item>
         );
@@ -160,6 +170,10 @@ function Sidebar(props) {
                     <FirstCondition/>
                     <SecondCondition/>
                     <EnableSecondConditionSwitch/>
+                    <Button className="reset-button" onClick={(e) => props.setSelectedRange(props.filterSpec)}>
+                        <RestartAltIcon/>
+                        <p style={{margin: "0"}} >Reset</p>
+                    </Button>
                 </Accordion.Body>
             </Accordion.Item>
         );
@@ -196,19 +210,19 @@ function Sidebar(props) {
                         checkedBoxes={props.checkedDrivers} setCheckedBoxes={props.setCheckedDrivers}
                     />
                     <RangeItem
-                        eventKey={7} header="IWR Range"
+                        eventKey={7} header="IWR Range" filterSpec={props.filterSpecs.reset_iwr}
                         selectedRange={props.selectedIwrRange} setSelectedRange={props.setSelectedIwrRange}
                     />
                     <RangeItem
-                        eventKey={8} header="RMSSE Range"
+                        eventKey={8} header="RMSSE Range" filterSpec={props.filterSpecs.reset_rmsse}
                         selectedRange={props.selectedRmsseRange} setSelectedRange={props.setSelectedRmsseRange}
                     />
                     <RangeItem
-                        eventKey={9} header="TotalCOgkm Range"
+                        eventKey={9} header="TotalCOgkm Range" filterSpec={props.filterSpecs.reset_co}
                         selectedRange={props.selectedTotalCoRange} setSelectedRange={props.setSelectedTotalCoRange}
                     />
                     <RangeItem
-                        eventKey={10} header="TotalCO2gkm Range"
+                        eventKey={10} header="TotalCO2gkm Range" filterSpec={props.filterSpecs.reset_co2}
                         selectedRange={props.selectedTotalCo2Range} setSelectedRange={props.setSelectedTotalCo2Range}
                     />
                 </Accordion>

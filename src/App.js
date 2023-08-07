@@ -66,6 +66,17 @@ function App() {
         temp.rmsse = [Math.min(...temp.rmsse), Math.max(...temp.rmsse)];
         temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
+        temp.reset_iwr = {enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]}
+        temp.reset_rmsse = {enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.rmsse[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.rmsse[1]};
+        temp.reset_co = {enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co_gkm[0], possibility: "and",secondIneq: "lte", secondIneqValue: temp.total_co_gkm[1]};
+        temp.reset_co2 = {enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co2_gkm[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co2_gkm[1]};
+        temp.reset_date = {
+          startDate: temp.date[0].getFullYear() +"-" +(temp.date[0].getMonth()+1).toString().padStart(2, '0') 
+            +"-" +temp.date[0].getDate().toString().padStart(2, '0') +"T" +temp.date[0].getHours().toString().padStart(2, '0')
+            +":" +temp.date[0].getMinutes().toString().padStart(2, '0'),
+          endDate: temp.date[1].getFullYear() +"-" +(temp.date[1].getMonth()+1).toString().padStart(2, '0')
+            +"-" +temp.date[1].getDate().toString().padStart(2, '0') +"T" +temp.date[1].getHours().toString().padStart(2, '0')
+            +":" +temp.date[1].getMinutes().toString().padStart(2, '0')};
 
         //set variables for initial state
         setRecords(input.data);

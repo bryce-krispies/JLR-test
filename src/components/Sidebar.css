@@ -57,3 +57,11 @@
 .accordion-container {
   padding: 0 0 0.5rem 0;
 }
+
+.reset-button {
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 0.25rem 0.75rem 0.25rem 0.5rem !important;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
