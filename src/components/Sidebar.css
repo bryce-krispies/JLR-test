@@ -3,7 +3,7 @@
   width: fit-content;
   min-width: 16.5rem;
   padding: 1rem;
-  padding-right: 0;
+  padding-right: 0.5rem;
   display: grid;
   grid-template-rows: fit-content(100%) auto;
   gap: 0.5rem;

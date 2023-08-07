@@ -112,7 +112,7 @@ function Visualization(props) {
                                         return false;
                                     }
                                     return true;
-                                }).map((entry) => <th>{entry}</th>)
+                                }).map((entry, i) => <th key={"entry-" +i}>{entry}</th>)
                             }
                         </tr>
                     </thead>
@@ -122,7 +122,7 @@ function Visualization(props) {
                                 props.removeDuplicates ? 
                                     Array.from(new Set(filterColumns(filterRows()).map(JSON.stringify)), JSON.parse) :
                                     filterColumns(filterRows())
-                            ).map((entry) => <tr>{entry.map((value) => <td>{value}</td>)}</tr>)
+                            ).map((entry, i) => <tr key={"entry-" +i}>{entry.map((value, j) => <td key={"value-" +i +"-" +j}>{value}</td>)}</tr>)
                         }
                     </tbody>
                 </Table>
