@@ -1,7 +1,7 @@
 .sidebar-container {
   height: 100%;
   width: fit-content;
-  min-width: 18rem;
+  min-width: 16.5rem;
   padding: 1rem;
   padding-right: 0;
   display: grid;

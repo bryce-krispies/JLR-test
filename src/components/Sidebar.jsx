@@ -358,7 +358,12 @@ function Sidebar(props) {
                     <TotalCoItem/>
                     <TotalCo2Item/>
                 </Accordion>
-                <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
+                <Form.Switch
+                    style={{marginLeft: "0.5rem"}}
+                    label={"Remove Duplicates"}
+                    defaultChecked={props.removeDuplicates}
+                    onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}
+                />
             </div>
         </div>
     );
