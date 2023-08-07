@@ -74,6 +74,9 @@ function Visualization(props) {
                 //rmsse filtering
                 if (!CheckIfEntryMeetsRange(props.selectedRmsseRange, entry['RMSSE'])) return false;
 
+                //total co filtering
+                if (!CheckIfEntryMeetsRange(props.selectedTotalCoRange, entry['TotalCOgkm'])) return false;
+
                 return true;
             })
         );
