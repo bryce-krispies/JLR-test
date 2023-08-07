@@ -6,100 +6,20 @@ import Button from 'react-bootstrap/Button';
 
 function Sidebar(props) {
 
-    function columnChecked() {
-        var columns = [...props.checkedColumns];
-        for(var i = props.filterSpecs.column.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.column[i]);
+    function itemChecked(initialCheckedItems, specs, setCheckedItems) {
+        var checkedItems = [...initialCheckedItems];
+        for (var i = specs.length -1; i >= 0; i--) {
+            var checkboxes = document.getElementsByName(specs[i]);
             for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = columns.indexOf(checkboxes[j].id);
+                var index = checkedItems.indexOf(checkboxes[j].id);
                 if(checkboxes[j].checked && index === -1) {
-                    columns.push(checkboxes[j].id);
+                    checkedItems.push(checkboxes[j].id);
                 } else if(index !== -1 && !checkboxes[j].checked) {
-                    columns.splice(index, 1);
+                    checkedItems.splice(index, 1);
                 }
             }
         }
-        props.setCheckedColumns(columns);
-    }
-
-    function cellChecked() {
-        var cells = [...props.checkedCells];
-        for(var i = props.filterSpecs.cell.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.cell[i]);
-            for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = cells.indexOf(checkboxes[j].id);
-                if(checkboxes[j].checked && index === -1) {
-                    cells.push(checkboxes[j].id);
-                } else if(index !== -1 && !checkboxes[j].checked) {
-                    cells.splice(index, 1);
-                }
-            }
-        }
-        props.setCheckedCells(cells);
-    }
-
-    function vehicleIdChecked() {
-        var vehicleIds = [...props.checkedVehicleIds];
-        for(var i = props.filterSpecs.vehicle_id.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.vehicle_id[i]);
-            for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = vehicleIds.indexOf(checkboxes[j].id);
-                if(checkboxes[j].checked && index === -1) {
-                    vehicleIds.push(checkboxes[j].id);
-                } else if(index !== -1 && !checkboxes[j].checked) {
-                    vehicleIds.splice(index, 1);
-                }
-            }
-        }
-        props.setCheckedVehicleIds(vehicleIds);
-    }
-
-    function driveTraceChecked() {
-        var driveTraces = [...props.checkedDriveTraces];
-        for(var i = props.filterSpecs.drive_trace.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.drive_trace[i]);
-            for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = driveTraces.indexOf(checkboxes[j].id);
-                if(checkboxes[j].checked && index === -1) {
-                    driveTraces.push(checkboxes[j].id);
-                } else if(index !== -1 && !checkboxes[j].checked) {
-                    driveTraces.splice(index, 1);
-                }
-            }
-        }
-        props.setCheckedDriveTraces(driveTraces);
-    }
-
-    function engineerChecked() {
-        var engineers = [...props.checkedEngineers];
-        for(var i = props.filterSpecs.engineer.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.engineer[i]);
-            for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = engineers.indexOf(checkboxes[j].id);
-                if(checkboxes[j].checked && index === -1) {
-                    engineers.push(checkboxes[j].id);
-                } else if(index !== -1 && !checkboxes[j].checked) {
-                    engineers.splice(index, 1);
-                }
-            }
-        }
-        props.setCheckedEngineers(engineers);
-    }
-
-    function driverChecked() {
-        var drivers = [...props.checkedDrivers];
-        for(var i = props.filterSpecs.driver.length - 1; i>=0; i--) {
-            var checkboxes = document.getElementsByName(props.filterSpecs.driver[i]);
-            for(var j = checkboxes.length - 1; j>=0; j--) {
-                var index = drivers.indexOf(checkboxes[j].id);
-                if(checkboxes[j].checked && index === -1) {
-                    drivers.push(checkboxes[j].id);
-                } else if(index !== -1 && !checkboxes[j].checked) {
-                    drivers.splice(index, 1);
-                }
-            }
-        }
-        props.setCheckedDrivers(drivers);
+        setCheckedItems(checkedItems);
     }
 
     function iwrRangeChanged(type, value) {
@@ -160,7 +80,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
-                        <Form.Check name={label} onClick={(e) => columnChecked()} defaultChecked={props.checkedColumns.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedColumns, props.filterSpecs.column, props.setCheckedColumns)}
+                            defaultChecked={props.checkedColumns.includes(label)}
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -197,7 +121,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
-                        <Form.Check name={label} onClick={(e) => cellChecked()} defaultChecked={props.checkedCells.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedCells, props.filterSpecs.cell, props.setCheckedCells)}
+                            defaultChecked={props.checkedCells.includes(label)}
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -210,7 +138,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Vehicle ID</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.vehicle_id && props.filterSpecs.vehicle_id.map((label)=>
-                        <Form.Check name={label} onClick={(e) => vehicleIdChecked()} defaultChecked={props.checkedVehicleIds.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedVehicleIds, props.filterSpecs.vehicle_id, props.setCheckedVehicleIds)}
+                            defaultChecked={props.checkedVehicleIds.includes(label)}
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -223,7 +155,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Drive Trace</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.drive_trace && props.filterSpecs.drive_trace.map((label)=>
-                        <Form.Check name={label} onClick={(e) => driveTraceChecked()} defaultChecked={props.checkedDriveTraces.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedDriveTraces, props.filterSpecs.drive_trace, props.setCheckedDriveTraces)}
+                            defaultChecked={props.checkedDriveTraces.includes(label)}
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -236,7 +172,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Engineer</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.engineer && props.filterSpecs.engineer.map((label)=>
-                        <Form.Check name={label} onClick={(e) => engineerChecked()} defaultChecked={props.checkedEngineers.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedEngineers, props.filterSpecs.engineer, props.setCheckedEngineers)}
+                            defaultChecked={props.checkedEngineers.includes(label)} 
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
@@ -249,7 +189,11 @@ function Sidebar(props) {
                 <Accordion.Header><h5 style={{margin: "0"}}>Driver</h5></Accordion.Header>
                 <Accordion.Body>
                     {props.filterSpecs.driver && props.filterSpecs.driver.map((label)=>
-                        <Form.Check name={label} onClick={(e) => driverChecked()} defaultChecked={props.checkedDrivers.includes(label)} type="checkbox" id={label} label={label} key={label}/>
+                        <Form.Check
+                            name={label} type="checkbox" id={label} label={label} key={label}
+                            onClick={(e) => itemChecked(props.checkedDrivers, props.filterSpecs.driver, props.setCheckedDrivers)}
+                            defaultChecked={props.checkedDrivers.includes(label)}
+                        />
                     )}
                 </Accordion.Body>
             </Accordion.Item>
