@@ -6,6 +6,7 @@ import Papa from 'papaparse';
 import csvFile from './CDTData.csv';
 
 function App() {
+  // state variables
   const [records, setRecords] = useState([]);
   const [filterSpecs, setFilterSpecs] = useState([]);
   const [selectedDateRange, setSelectedDateRange] = useState({});
@@ -40,6 +41,7 @@ function App() {
           total_co2_gkm: []
         };
 
+        // pre-process data
         input.data.forEach((test) => {
           let splitDatetime = test['TestDateTime'].split("/");
           temp.date.push(new Date(splitDatetime[1]+"/"+splitDatetime[0]+"/"+splitDatetime[2]));
@@ -53,7 +55,6 @@ function App() {
           temp.total_co_gkm.push(parseFloat(test['TotalCOgkm']));
           temp.total_co2_gkm.push(parseFloat(test['TotalCO2gkm']));
         });
-
         temp.date = [new Date(Math.min(...temp.date)), new Date(Math.max(...temp.date))];
         temp.column = Object.keys(input.data[0]);
         temp.cell.sort();
@@ -66,21 +67,34 @@ function App() {
         temp.total_co_gkm = [Math.min(...temp.total_co_gkm), Math.max(...temp.total_co_gkm)];
         temp.total_co2_gkm = [Math.min(...temp.total_co2_gkm), Math.max(...temp.total_co2_gkm)];
 
+        //set variables for initial state
         setRecords(input.data);
         setFilterSpecs(JSON.parse(JSON.stringify(temp)));
         setSelectedDateRange(JSON.parse(JSON.stringify({
-          startDate: temp.date[0].getFullYear() +"-" +(temp.date[0].getMonth()+1).toString().padStart(2, '0') +"-" +temp.date[0].getDate().toString().padStart(2, '0') +"T" +temp.date[0].getHours().toString().padStart(2, '0') +":" +temp.date[0].getMinutes().toString().padStart(2, '0'),
-          endDate: temp.date[1].getFullYear() +"-" +(temp.date[1].getMonth()+1).toString().padStart(2, '0') +"-" +temp.date[1].getDate().toString().padStart(2, '0') +"T" +temp.date[1].getHours().toString().padStart(2, '0') +":" +temp.date[1].getMinutes().toString().padStart(2, '0')})));
-        setCheckedColumns(JSON.parse(JSON.stringify(Object.keys(input.data[0]))));
+          startDate: temp.date[0].getFullYear() +"-" +(temp.date[0].getMonth()+1).toString().padStart(2, '0') 
+            +"-" +temp.date[0].getDate().toString().padStart(2, '0') +"T" +temp.date[0].getHours().toString().padStart(2, '0')
+            +":" +temp.date[0].getMinutes().toString().padStart(2, '0'),
+          endDate: temp.date[1].getFullYear() +"-" +(temp.date[1].getMonth()+1).toString().padStart(2, '0')
+            +"-" +temp.date[1].getDate().toString().padStart(2, '0') +"T" +temp.date[1].getHours().toString().padStart(2, '0')
+            +":" +temp.date[1].getMinutes().toString().padStart(2, '0')})));
+        setCheckedColumns(JSON.parse(JSON.stringify(temp.column)));
         setCheckedCells(JSON.parse(JSON.stringify(temp.cell)));
         setCheckedVehicleIds(JSON.parse(JSON.stringify(temp.vehicle_id)));
         setCheckedDriveTraces(JSON.parse(JSON.stringify(temp.drive_trace)));
         setCheckedEngineers(JSON.parse(JSON.stringify(temp.engineer)));
         setCheckedDrivers(JSON.parse(JSON.stringify(temp.driver)));
-        setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
-        setSelectedRmsseRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.rmsse[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.rmsse[1]})));
-        setSelectedTotalCoRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co_gkm[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co_gkm[1]})));
-        setSelectedTotalCo2Range(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co2_gkm[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co2_gkm[1]})));
+        setSelectedIwrRange(JSON.parse(JSON.stringify({
+          enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0],
+          possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
+        setSelectedRmsseRange(JSON.parse(JSON.stringify({
+          enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.rmsse[0],
+          possibility: "and", secondIneq: "lte", secondIneqValue: temp.rmsse[1]})));
+        setSelectedTotalCoRange(JSON.parse(JSON.stringify({
+          enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co_gkm[0],
+          possibility: "and",secondIneq: "lte", secondIneqValue: temp.total_co_gkm[1]})));
+        setSelectedTotalCo2Range(JSON.parse(JSON.stringify({
+          enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.total_co2_gkm[0],
+          possibility: "and", secondIneq: "lte", secondIneqValue: temp.total_co2_gkm[1]})));
       }
     });
   }, []);
