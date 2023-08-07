@@ -49,6 +49,13 @@ function Sidebar(props) {
         setSelectedRange(JSON.parse(JSON.stringify(temp)))
     }
 
+    function resetRange(filterSpec, setSelectedRange) {
+        let temp = JSON.parse(JSON.stringify(filterSpec));
+        temp.firstIneqValue = parseFloat(temp.firstIneqValue);
+        temp.secondIneqValue = parseFloat(temp.secondIneqValue);
+        setSelectedRange(temp)
+    }
+
     function CheckboxListItem(props) {
         return (
             <Accordion.Item eventKey={props.eventKey}>
@@ -170,7 +177,7 @@ function Sidebar(props) {
                     <FirstCondition/>
                     <SecondCondition/>
                     <EnableSecondConditionSwitch/>
-                    <Button className="reset-button" onClick={(e) => props.setSelectedRange(props.filterSpec)}>
+                    <Button className="reset-button" onClick={(e) => resetRange(props.filterSpec, props.setSelectedRange)}>
                         <RestartAltIcon/>
                         <p style={{margin: "0"}} >Reset</p>
                     </Button>
