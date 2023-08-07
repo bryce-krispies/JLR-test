@@ -1,10 +1,12 @@
 .sidebar-container {
   height: 100%;
   width: fit-content;
-  min-width: 15rem;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
+  min-width: 18rem;
+  padding: 1rem;
+  padding-right: 0;
+  display: grid;
+  grid-template-rows: fit-content(100%) auto;
+  gap: 0.5rem;
 }
 
 .accordion-button {

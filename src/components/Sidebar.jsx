@@ -293,18 +293,20 @@ function Sidebar(props) {
 
     return (
         <div className="sidebar-container">
-            <h2 style={{margin: "0 auto 0 auto", padding: "0 0 0.5rem 0"}}>Filter</h2>
-            <Accordion style={{padding: "0 0 0.5rem 0"}}>
-                <ColumnItem/>
-                <DatetimeItem/>
-                <CellItem/>
-                <VehicleIdItem/>
-                <DriveTraceItem/>
-                <EngineerItem/>
-                <DriverItem/>
-                <IWRItem/>
-            </Accordion>
-            <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
+            <h2 style={{margin: "0 auto 0 auto"}}>Filter</h2>
+            <div style={{overflowY: "scroll"}}>
+                <Accordion style={{padding: "0 0 0.5rem 0"}}>
+                    <ColumnItem/>
+                    <DatetimeItem/>
+                    <CellItem/>
+                    <VehicleIdItem/>
+                    <DriveTraceItem/>
+                    <EngineerItem/>
+                    <DriverItem/>
+                    <IWRItem/>
+                </Accordion>
+                <Button variant={props.removeDuplicates ? "success" : "danger"} onClick={() => props.setRemoveDuplicates(!props.removeDuplicates)}>{props.removeDuplicates ? "Bring Back Duplicates" : "Remove Duplicates"}</Button>
+            </div>
         </div>
     );
 }
