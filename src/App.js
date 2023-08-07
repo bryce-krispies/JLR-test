@@ -16,6 +16,7 @@ function App() {
   const [checkedEngineers, setCheckedEngineers] = useState([]);
   const [checkedDrivers, setCheckedDrivers] = useState([]);
   const [selectedIwrRange, setSelectedIwrRange] = useState({});
+  const [selectedRmsseRange, setSelectedRmsseRange] = useState({});
   const [removeDuplicates, setRemoveDuplicates] = useState(false);
 
   useEffect(()=>{
@@ -75,6 +76,7 @@ function App() {
         setCheckedEngineers(JSON.parse(JSON.stringify(temp.engineer)));
         setCheckedDrivers(JSON.parse(JSON.stringify(temp.driver)));
         setSelectedIwrRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.iwr[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.iwr[1]})));
+        setSelectedRmsseRange(JSON.parse(JSON.stringify({enableSecondCond: false, firstIneq: "gte", firstIneqValue: temp.rmsse[0], possibility: "and", secondIneq: "lte", secondIneqValue: temp.rmsse[1]})));
       }
     });
   }, []);
@@ -91,6 +93,7 @@ function App() {
         checkedEngineers={checkedEngineers} setCheckedEngineers={setCheckedEngineers}
         checkedDrivers={checkedDrivers} setCheckedDrivers={setCheckedDrivers}
         selectedIwrRange={selectedIwrRange} setSelectedIwrRange={setSelectedIwrRange}
+        selectedRmsseRange={selectedRmsseRange} setSelectedRmsseRange={setSelectedRmsseRange}
         removeDuplicates={removeDuplicates} setRemoveDuplicates={setRemoveDuplicates}
       />
       <div style={{height: "100%", width: "1px", backgroundColor: "black"}}/>
@@ -104,6 +107,7 @@ function App() {
         checkedEngineers={checkedEngineers}
         checkedDrivers={checkedDrivers}
         selectedIwrRange={selectedIwrRange}
+        selectedRmsseRange={selectedRmsseRange}
         removeDuplicates={removeDuplicates}
       />
     </div>

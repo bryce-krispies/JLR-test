@@ -3,6 +3,49 @@ import Table from 'react-bootstrap/Table';
 
 function Visualization(props) {
     function filterRows() {
+        function CheckIfEntryMeetsRange(range, value) {
+            let passesFirstCond = true;
+            switch(range.firstIneq) {
+                case "lt":
+                    if (!(range.firstIneqValue > value)) passesFirstCond = false;
+                    break;
+                case "lte":
+                    if (!(range.firstIneqValue >= value)) passesFirstCond = false;
+                    break;
+                case "gt":
+                    if (!(range.firstIneqValue < value)) passesFirstCond = false;
+                    break;
+                case "gte":
+                    if (!(range.firstIneqValue <= value)) passesFirstCond = false;
+                    break;
+                default:
+            }
+            if (range.enableSecondCond) {
+                let passesSecondCond = true;
+                switch(range.secondIneq) {
+                    case "lt":
+                        if (!(range.secondIneqValue > value)) passesSecondCond = false;
+                        break;
+                    case "lte":
+                        if (!(range.secondIneqValue >= value)) passesSecondCond = false;
+                        break;
+                    case "gt":
+                        if (!(range.secondIneqValue < value)) passesSecondCond = false;
+                        break;
+                    case "gte":
+                        if (!(range.secondIneqValue <= value)) passesSecondCond = false;
+                        break;
+                    default:
+                }
+
+                if ((range.possibility === "and") && !(passesFirstCond && passesSecondCond))  return false;
+                else if ((range.possibility === "or") && !(passesFirstCond || passesSecondCond))  return false;
+
+            } else if(!passesFirstCond) return false;
+
+            return true;
+        }
+
         return (
             props.records.filter((entry) => {
                 //date filtering
@@ -26,52 +69,10 @@ function Visualization(props) {
                 if (!props.checkedDrivers.includes(entry['Driver'])) return false;
 
                 //iwr filtering
-                let passesFirstCond = true;
-                switch(props.selectedIwrRange.firstIneq) {
-                    case "lt":
-                        if (!(props.selectedIwrRange.firstIneqValue > entry['IWR'])) passesFirstCond = false;
-                        break;
-                    case "lte":
-                        if (!(props.selectedIwrRange.firstIneqValue >= entry['IWR'])) passesFirstCond = false;
-                        break;
-                    case "gt":
-                        if (!(props.selectedIwrRange.firstIneqValue < entry['IWR'])) passesFirstCond = false;
-                        break;
-                    case "gte":
-                        if (!(props.selectedIwrRange.firstIneqValue <= entry['IWR'])) passesFirstCond = false;
-                        break;
-                    default:
-                }
-                if (props.selectedIwrRange.enableSecondCond) {
-                    let passesSecondCond = true;
-                    switch(props.selectedIwrRange.secondIneq) {
-                        case "lt":
-                            if (!(props.selectedIwrRange.secondIneqValue > entry['IWR']))
-                                passesSecondCond = false;
-                            break;
-                        case "lte":
-                            if (!(props.selectedIwrRange.secondIneqValue >= entry['IWR']))
-                                passesSecondCond = false;
-                            break;
-                        case "gt":
-                            if (!(props.selectedIwrRange.secondIneqValue < entry['IWR']))
-                                passesSecondCond = false;
-                            break;
-                        case "gte":
-                            if (!(props.selectedIwrRange.secondIneqValue <= entry['IWR']))
-                                passesSecondCond = false;
-                            break;
-                        default:
-                    }
+                if (!CheckIfEntryMeetsRange(props.selectedIwrRange, entry['IWR'])) return false;
 
-                    if ((props.selectedIwrRange.possibility === "and") && !(passesFirstCond && passesSecondCond)) {
-                        return false;
-                    } else if ((props.selectedIwrRange.possibility === "or") && !(passesFirstCond || passesSecondCond)) {
-                        return false;
-                    }
-                } else {
-                    if(!passesFirstCond) return false;
-                }
+                //rmsse filtering
+                if (!CheckIfEntryMeetsRange(props.selectedRmsseRange, entry['RMSSE'])) return false;
 
                 return true;
             })
