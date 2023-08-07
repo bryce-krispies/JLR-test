@@ -48,16 +48,16 @@ function Sidebar(props) {
         setSelectedRange(JSON.parse(JSON.stringify(temp)))
     }
 
-    function ColumnItem() {
+    function CheckboxListItem(props) {
         return (
-            <Accordion.Item eventKey="0">
-                <Accordion.Header><h5 style={{margin: "0"}}>Column</h5></Accordion.Header>
+            <Accordion.Item eventKey={props.eventKey}>
+                <Accordion.Header><h5 style={{margin: "0"}}>{props.header}</h5></Accordion.Header>
                 <Accordion.Body>
-                    {props.filterSpecs.column && props.filterSpecs.column.map((label)=>
+                    {props.filterSpec && props.filterSpec.map((label)=>
                         <Form.Check
                             name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedColumns, props.filterSpecs.column, props.setCheckedColumns)}
-                            defaultChecked={props.checkedColumns.includes(label)}
+                            onClick={(e) => itemChecked(props.checkedBoxes, props.filterSpec, props.setCheckedBoxes)}
+                            defaultChecked={props.checkedBoxes.includes(label)}
                         />
                     )}
                 </Accordion.Body>
@@ -84,91 +84,6 @@ function Sidebar(props) {
                         defaultValue={props.selectedDateRange.endDate}
                         onChange={(e) => props.setSelectedDateRange({startDate: props.selectedDateRange.startDate, endDate: e.target.value})}
                     />
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function CellItem() {
-        return (
-            <Accordion.Item eventKey="2">
-                <Accordion.Header><h5 style={{margin: "0"}}>Cell</h5></Accordion.Header>
-                <Accordion.Body>
-                    {props.filterSpecs.cell && props.filterSpecs.cell.map((label)=>
-                        <Form.Check
-                            name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedCells, props.filterSpecs.cell, props.setCheckedCells)}
-                            defaultChecked={props.checkedCells.includes(label)}
-                        />
-                    )}
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function VehicleIdItem() {
-        return (
-            <Accordion.Item eventKey="3">
-                <Accordion.Header><h5 style={{margin: "0"}}>Vehicle ID</h5></Accordion.Header>
-                <Accordion.Body>
-                    {props.filterSpecs.vehicle_id && props.filterSpecs.vehicle_id.map((label)=>
-                        <Form.Check
-                            name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedVehicleIds, props.filterSpecs.vehicle_id, props.setCheckedVehicleIds)}
-                            defaultChecked={props.checkedVehicleIds.includes(label)}
-                        />
-                    )}
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function DriveTraceItem() {
-        return (
-            <Accordion.Item eventKey="4">
-                <Accordion.Header><h5 style={{margin: "0"}}>Drive Trace</h5></Accordion.Header>
-                <Accordion.Body>
-                    {props.filterSpecs.drive_trace && props.filterSpecs.drive_trace.map((label)=>
-                        <Form.Check
-                            name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedDriveTraces, props.filterSpecs.drive_trace, props.setCheckedDriveTraces)}
-                            defaultChecked={props.checkedDriveTraces.includes(label)}
-                        />
-                    )}
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function EngineerItem() {
-        return (
-            <Accordion.Item eventKey="5">
-                <Accordion.Header><h5 style={{margin: "0"}}>Engineer</h5></Accordion.Header>
-                <Accordion.Body>
-                    {props.filterSpecs.engineer && props.filterSpecs.engineer.map((label)=>
-                        <Form.Check
-                            name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedEngineers, props.filterSpecs.engineer, props.setCheckedEngineers)}
-                            defaultChecked={props.checkedEngineers.includes(label)} 
-                        />
-                    )}
-                </Accordion.Body>
-            </Accordion.Item>
-        );
-    }
-
-    function DriverItem() {
-        return (
-            <Accordion.Item eventKey="6">
-                <Accordion.Header><h5 style={{margin: "0"}}>Driver</h5></Accordion.Header>
-                <Accordion.Body>
-                    {props.filterSpecs.driver && props.filterSpecs.driver.map((label)=>
-                        <Form.Check
-                            name={label} type="checkbox" id={label} label={label} key={label}
-                            onClick={(e) => itemChecked(props.checkedDrivers, props.filterSpecs.driver, props.setCheckedDrivers)}
-                            defaultChecked={props.checkedDrivers.includes(label)}
-                        />
-                    )}
                 </Accordion.Body>
             </Accordion.Item>
         );
@@ -299,13 +214,31 @@ function Sidebar(props) {
             <h2 style={{margin: "0 auto 0 auto"}}>Filter</h2>
             <div style={{overflowY: "scroll"}}>
                 <Accordion style={{padding: "0 0 0.5rem 0"}}>
-                    <ColumnItem/>
+                    <CheckboxListItem
+                        eventKey={0} header="Column" filterSpec={props.filterSpecs.column}
+                        checkedBoxes={props.checkedColumns} setCheckedBoxes={props.setCheckedColumns}
+                    />
                     <DatetimeItem/>
-                    <CellItem/>
-                    <VehicleIdItem/>
-                    <DriveTraceItem/>
-                    <EngineerItem/>
-                    <DriverItem/>
+                    <CheckboxListItem
+                        eventKey={2} header="Cell" filterSpec={props.filterSpecs.cell}
+                        checkedBoxes={props.checkedCells} setCheckedBoxes={props.setCheckedCells}
+                    />
+                    <CheckboxListItem
+                        eventKey={3} header="Vehicle ID" filterSpec={props.filterSpecs.vehicle_id}
+                        checkedBoxes={props.checkedVehicleIds} setCheckedBoxes={props.setCheckedVehicleIds}
+                    />
+                    <CheckboxListItem
+                        eventKey={4} header="Drive Trace" filterSpec={props.filterSpecs.drive_trace}
+                        checkedBoxes={props.checkedDriveTraces} setCheckedBoxes={props.setCheckedDriveTraces}
+                    />
+                    <CheckboxListItem
+                        eventKey={5} header="Engineer" filterSpec={props.filterSpecs.engineer}
+                        checkedBoxes={props.checkedEngineers} setCheckedBoxes={props.setCheckedEngineers}
+                    />
+                    <CheckboxListItem
+                        eventKey={6} header="Driver" filterSpec={props.filterSpecs.driver}
+                        checkedBoxes={props.checkedDrivers} setCheckedBoxes={props.setCheckedDrivers}
+                    />
                     <IwrItem/>
                     <RmsseItem/>
                 </Accordion>
