@@ -27,6 +27,16 @@
   padding: 0.5rem !important;
 }
 
+.show-element {
+  margin-bottom: 0.25rem;
+}
+
 .hide-element {
   display: none;
+}
+
+.and-or-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }

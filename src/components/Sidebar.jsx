@@ -235,12 +235,6 @@ function Sidebar(props) {
             <Accordion.Item eventKey="7">
                 <Accordion.Header><h5 style={{margin: "0"}}>IWR Range</h5></Accordion.Header>
                 <Accordion.Body>
-                    <Button
-                        size="sm"
-                        style={{margin: "0 0 0.25rem 0"}}
-                        variant={props.selectedIwrRange.enableSecondCond ? "danger" : "success"}
-                        onClick={(e) => iwrRangeChanged("enableSecondCond", !props.selectedIwrRange.enableSecondCond)}
-                    >{props.selectedIwrRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}</Button>
                     <Form.Select onChange={(e) => iwrRangeChanged("firstIneq", e.target.value)} defaultValue={props.selectedIwrRange.firstIneq}>
                         <option value="lt">Less Than</option>
                         <option value="lte">Less Than Or Equal To</option>
@@ -254,25 +248,25 @@ function Sidebar(props) {
                         defaultValue={props.selectedIwrRange.firstIneqValue}
                         onBlur={(e) => iwrRangeChanged("firstIneqValue", e.target.value)}
                     />
-                    <div className={props.selectedIwrRange.enableSecondCond ? "" : "hide-element"}>
-                        <Form.Check
-                            inline
-                            label="AND"
-                            type="radio"
-                            name="possibilityRadio"
-                            value="and"
-                            defaultChecked={props.selectedIwrRange.possibility === "and"}
-                            onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
-                        />
-                        <Form.Check
-                            inline
-                            label="OR"
-                            type="radio"
-                            name="possibilityRadio"
-                            value="or"
-                            defaultChecked={props.selectedIwrRange.possibility === "or"}
-                            onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
-                        />
+                    <div className={props.selectedIwrRange.enableSecondCond ? "show-element" : "hide-element"}>
+                        <div className="and-or-container">
+                            <Form.Check
+                                label="AND"
+                                type="radio"
+                                name="possibilityRadio"
+                                value="and"
+                                defaultChecked={props.selectedIwrRange.possibility === "and"}
+                                onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
+                            />
+                            <Form.Check
+                                label="OR"
+                                type="radio"
+                                name="possibilityRadio"
+                                value="or"
+                                defaultChecked={props.selectedIwrRange.possibility === "or"}
+                                onClick={(e) => iwrRangeChanged("possibility", e.target.value)}
+                            />
+                        </div>
                         <Form.Select style={{margin: "0.25rem 0"}} onBlur={(e) => iwrRangeChanged("secondIneq", e.target.value)} defaultValue={props.selectedIwrRange.secondIneq}>
                             <option value="lt">Less Than</option>
                             <option value="lte">Less Than Or Equal To</option>
@@ -286,6 +280,11 @@ function Sidebar(props) {
                             onChange={(e) => iwrRangeChanged("secondIneqValue", e.target.value)}
                         />
                     </div>
+                    <Form.Switch
+                        label={props.selectedIwrRange.enableSecondCond ? "Disable Second Condition" : "Enable Second Condition"}
+                        defaultChecked={props.selectedIwrRange.enableSecondCond}
+                        onChange={(e) => iwrRangeChanged("enableSecondCond", !props.selectedIwrRange.enableSecondCond)}
+                    />
                 </Accordion.Body>
             </Accordion.Item>
         );
